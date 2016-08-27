@@ -1,17 +1,11 @@
 package online.pandaapps.gre.projecteuler;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,7 +27,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import android.os.Handler;
-import java.util.logging.LogRecord;
 
 import online.pandaapps.gre.projecteuler.Euler.ProblemLanding;
 import online.pandaapps.gre.projecteuler.Storage.SQLITE3storage;
@@ -92,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 status.setText(R.string.blank);
                 if (error instanceof NoConnectionError || error instanceof TimeoutError) {
-                    Snackbar.make(getWindow().getDecorView().getRootView(), Constants.NetworkError, Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(getWindow().getDecorView().getRootView(), Constants.NetworkError, Snackbar.LENGTH_INDEFINITE).show();
                 }
             }
         });
@@ -119,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                     startActivity(new Intent(getApplicationContext(),ProblemLanding.class));
-                    overridePendingTransition(R.anim.application_transition,R.anim.application_transition);
+                    overridePendingTransition(R.anim.bottomdown,R.anim.bottomdown);
                     finish();
 
 
@@ -133,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 status.setText(R.string.blank);
                 if (error instanceof NoConnectionError || error instanceof TimeoutError) {
-                    Snackbar.make(getWindow().getDecorView().getRootView(), Constants.NetworkError, Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(getWindow().getDecorView().getRootView(), Constants.NetworkError, Snackbar.LENGTH_INDEFINITE).show();
                 }
             }
         });
@@ -166,10 +159,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         startActivity(new Intent(getApplicationContext(),ProblemLanding.class));
-                        overridePendingTransition(R.anim.application_transition,R.anim.application_transition);
+                        overridePendingTransition(R.anim.bottomup,R.anim.bottomup);
                         finish();
                     }
-                }, 3000);
+                }, 2000);
             }
 
         }
