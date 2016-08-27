@@ -36,6 +36,16 @@ public class SharedPrefStorage {
         return sp_general.getString(Constants.dateDB,"26-08-2016");
     }
 
+    public void setUpdateDBFlag(int dbFlag){
+        SharedPreferences.Editor editor = sp_general.edit();
+        editor.putInt(Constants.downloadDBFlag,dbFlag);
+        editor.apply();
+    }
+
+    public int getUpdateDBFlag(){
+        return sp_general.getInt(Constants.downloadDBFlag,100);
+    }
+
     public void setMainActivityFirstRun(int code){
         SharedPreferences.Editor editor = sp_general.edit();
         editor.putInt(Constants.MainActivity,code);

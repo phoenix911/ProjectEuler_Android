@@ -7,11 +7,33 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/splash"
     tools:context="online.pandaapps.gre.projecteuler.MainActivity">
+
+    <ImageView
+        android:id="@+id/loaderImage"
+        android:src="@drawable/panda"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/DownloadStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text=""
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/loaderImage"
+        />
+
+    <!--demo delete the button-->
 
     <Button
         android:id="@+id/demo"
         android:layout_width="wrap_content"
+        android:visibility="invisible"
         android:layout_height="wrap_content"
         android:text="start next activity replace it with automated splash"
         />

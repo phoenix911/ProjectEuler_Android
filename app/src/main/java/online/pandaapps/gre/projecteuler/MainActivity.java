@@ -6,7 +6,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
@@ -27,6 +31,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import online.pandaapps.gre.projecteuler.Euler.ProblemLanding;
+import online.pandaapps.gre.projecteuler.Storage.SQLITE3storage;
 import online.pandaapps.gre.projecteuler.Storage.SharedPrefStorage;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,29 +40,41 @@ public class MainActivity extends AppCompatActivity {
     SharedPrefStorage spStorage;
     String serverDate, spDate;
     StringRequest getDateReq, getEulerDB;
+    SQLITE3storage dbStorage;
+    ImageView loadingAnimation;
+    TextView status;
+
+    Date spDate_date, serverDate_date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         spStorage = new SharedPrefStorage(this);
+        dbStorage = new SQLITE3storage(this);
+        loadingAnimation = (ImageView) findViewById(R.id.loaderImage);
+        status = (TextView) findViewById(R.id.DownloadStatus);
+        Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
+        loadingAnimation.startAnimation(pulse);
+        pulse.setRepeatCount(Animation.INFINITE);
         final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
-
+        status.setText(R.string.connecting_server);
         getDateReq = new StringRequest(Request.Method.GET, Constants.urlDate, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                status.setText(R.string.blank);
                 try {
                     JSONObject serverOp = new JSONObject(response);
                     serverDate = serverOp.getString("date_updated");
-                    Date spDate_date = dateFormat.parse(spDate);
-                    Date webDate_date = dateFormat.parse(serverDate);
+                    spDate_date = dateFormat.parse(spDate);
+                    serverDate_date = dateFormat.parse(serverDate);
 
-                    if (webDate_date.after(spDate_date)){
-                        // download the db file and save it
-                        // update shared preference
+                    if (serverDate_date.after(spDate_date)){
+                        spStorage.setUpdateDBFlag(1);
                         spStorage.setDBdate(serverDate);
                     }
+
 
                 } catch (JSONException | ParseException e) {
                     e.printStackTrace();
@@ -66,15 +83,18 @@ public class MainActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                status.setText(R.string.blank);
                 if (error instanceof NoConnectionError || error instanceof TimeoutError){
                     Snackbar.make(getWindow().getDecorView().getRootView(),Constants.NetworkError, Snackbar.LENGTH_LONG).show();
                 }
             }
         });
 
+        status.setText(R.string.ready);
         getEulerDB = new StringRequest(Request.Method.GET, Constants.urlDB, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                status.setText(R.string.blank);
                 try {
                     JSONArray serverOp = new JSONArray(response);
                     for (int i = 0; i < serverOp.length(); i++) {
@@ -88,8 +108,7 @@ public class MainActivity extends AppCompatActivity {
                         String timePublished = indiQuestion.getString("time");
                         String problem = indiQuestion.getString("problem");
                         String images_link = indiQuestion.getString("image_links");
-
-
+                        dbStorage.insertData(slNo,datePublished,timePublished,problem,title,difficulty,solvedBy,images_link);
 
                     }
 
@@ -100,25 +119,35 @@ public class MainActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                status.setText(R.string.blank);
                 if (error instanceof NoConnectionError || error instanceof TimeoutError){
                     Snackbar.make(getWindow().getDecorView().getRootView(),Constants.NetworkError, Snackbar.LENGTH_LONG).show();
                 }
             }
         });
 
-        Volley.newRequestQueue(getApplicationContext()).add(getEulerDB);
 
+        int firstRun = spStorage.getMainActivityFirstRun();
+        if (firstRun == 0){
+            System.out.println("first run");
+            spStorage.setMainActivityFirstRun(1);
+            Volley.newRequestQueue(getApplicationContext()).add(getEulerDB);
+            // download db and save to storage
+            // first run
+        }else {
+            // nth run
+            Volley.newRequestQueue(getApplicationContext()).add(getDateReq);
+            System.out.println("nth run");
+            int dbDownload = spStorage.getUpdateDBFlag();
 
-//        int firstRun = spStorage.getMainActivityFirstRun();
-//        if (firstRun == 0){
-//            spStorage.setMainActivityFirstRun(1);
-//            // download db and save to storage
-//            // first run
-//        }else {
-//            // nth run
-//            Volley.newRequestQueue(getApplicationContext()).add(getDateReq);
-//
-//        }
+            System.out.println(dbDownload);
+            if (dbDownload == 1){
+                this.deleteDatabase(Constants.dbName);
+                spStorage.setUpdateDBFlag(100);
+                Volley.newRequestQueue(getApplicationContext()).add(getEulerDB);
+            }
+
+        }
 
         try {
             version_number = Double.parseDouble(getPackageManager().getPackageInfo(getPackageName(),0).versionName);
