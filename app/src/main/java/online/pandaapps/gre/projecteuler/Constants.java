@@ -26,5 +26,6 @@ public class Constants {
 
     // first run
     public static final String  MainActivity = "main_activity";
+    public static final String  flagNextAct = "flagNextAct";
 
 }

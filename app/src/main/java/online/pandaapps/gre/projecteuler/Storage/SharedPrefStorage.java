@@ -16,16 +16,6 @@ public class SharedPrefStorage {
         sp_general = context.getSharedPreferences(Constants.spName,0);
     }
 
-    public void setVersion(String version_number){
-        SharedPreferences.Editor editor = sp_general.edit();
-        editor.putString(Constants.version,version_number);
-        editor.apply();
-    }
-
-    public String getVersion(){
-        return sp_general.getString(Constants.version,"1.0");
-    }
-
     public void setDBdate(String dateUpdate){
         SharedPreferences.Editor editor = sp_general.edit();
         editor.putString(Constants.dateDB,dateUpdate);
@@ -55,6 +45,7 @@ public class SharedPrefStorage {
     public int getMainActivityFirstRun(){
         return sp_general.getInt(Constants.MainActivity,0);
     }
+
 
 
 }

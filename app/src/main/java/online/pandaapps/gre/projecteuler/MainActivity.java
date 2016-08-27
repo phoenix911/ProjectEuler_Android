@@ -1,7 +1,10 @@
 package online.pandaapps.gre.projecteuler;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +32,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import android.os.Handler;
+import java.util.logging.LogRecord;
 
 import online.pandaapps.gre.projecteuler.Euler.ProblemLanding;
 import online.pandaapps.gre.projecteuler.Storage.SQLITE3storage;
@@ -36,22 +41,23 @@ import online.pandaapps.gre.projecteuler.Storage.SharedPrefStorage;
 
 public class MainActivity extends AppCompatActivity {
 
-    double version_number = 1.0;
     SharedPrefStorage spStorage;
     String serverDate, spDate;
     StringRequest getDateReq, getEulerDB;
     SQLITE3storage dbStorage;
     ImageView loadingAnimation;
     TextView status;
-
     Date spDate_date, serverDate_date;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         spStorage = new SharedPrefStorage(this);
         dbStorage = new SQLITE3storage(this);
+
         loadingAnimation = (ImageView) findViewById(R.id.loaderImage);
         status = (TextView) findViewById(R.id.DownloadStatus);
         Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
@@ -67,14 +73,15 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONObject serverOp = new JSONObject(response);
                     serverDate = serverOp.getString("date_updated");
+//                    System.out.println(serverDate);
+                    spDate = spStorage.getDBdate();
                     spDate_date = dateFormat.parse(spDate);
                     serverDate_date = dateFormat.parse(serverDate);
 
-                    if (serverDate_date.after(spDate_date)){
+                    if (serverDate_date.after(spDate_date)) {
                         spStorage.setUpdateDBFlag(1);
                         spStorage.setDBdate(serverDate);
                     }
-
 
                 } catch (JSONException | ParseException e) {
                     e.printStackTrace();
@@ -84,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 status.setText(R.string.blank);
-                if (error instanceof NoConnectionError || error instanceof TimeoutError){
-                    Snackbar.make(getWindow().getDecorView().getRootView(),Constants.NetworkError, Snackbar.LENGTH_LONG).show();
+                if (error instanceof NoConnectionError || error instanceof TimeoutError) {
+                    Snackbar.make(getWindow().getDecorView().getRootView(), Constants.NetworkError, Snackbar.LENGTH_LONG).show();
                 }
             }
         });
@@ -108,9 +115,14 @@ public class MainActivity extends AppCompatActivity {
                         String timePublished = indiQuestion.getString("time");
                         String problem = indiQuestion.getString("problem");
                         String images_link = indiQuestion.getString("image_links");
-                        dbStorage.insertData(slNo,datePublished,timePublished,problem,title,difficulty,solvedBy,images_link);
+                        dbStorage.insertData(slNo, datePublished, timePublished, problem, title, difficulty, solvedBy, images_link);
 
                     }
+                    startActivity(new Intent(getApplicationContext(),ProblemLanding.class));
+                    overridePendingTransition(R.anim.application_transition,R.anim.application_transition);
+                    finish();
+
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -120,72 +132,49 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 status.setText(R.string.blank);
-                if (error instanceof NoConnectionError || error instanceof TimeoutError){
-                    Snackbar.make(getWindow().getDecorView().getRootView(),Constants.NetworkError, Snackbar.LENGTH_LONG).show();
+                if (error instanceof NoConnectionError || error instanceof TimeoutError) {
+                    Snackbar.make(getWindow().getDecorView().getRootView(), Constants.NetworkError, Snackbar.LENGTH_LONG).show();
                 }
             }
         });
 
+        // first time download the content
 
         int firstRun = spStorage.getMainActivityFirstRun();
-        if (firstRun == 0){
+        if (firstRun == 0) {
             System.out.println("first run");
             spStorage.setMainActivityFirstRun(1);
             Volley.newRequestQueue(getApplicationContext()).add(getEulerDB);
+
             // download db and save to storage
             // first run
-        }else {
+        } else {
             // nth run
             Volley.newRequestQueue(getApplicationContext()).add(getDateReq);
             System.out.println("nth run");
             int dbDownload = spStorage.getUpdateDBFlag();
 
-            System.out.println(dbDownload);
-            if (dbDownload == 1){
+            if (dbDownload == 1) {
                 this.deleteDatabase(Constants.dbName);
-                spStorage.setUpdateDBFlag(100);
                 Volley.newRequestQueue(getApplicationContext()).add(getEulerDB);
+                spStorage.setUpdateDBFlag(100);
+            }else {
+                // delay of 4 sec
+                // start next activity
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(getApplicationContext(),ProblemLanding.class));
+                        overridePendingTransition(R.anim.application_transition,R.anim.application_transition);
+                        finish();
+                    }
+                }, 3000);
             }
 
         }
 
-        try {
-            version_number = Double.parseDouble(getPackageManager().getPackageInfo(getPackageName(),0).versionName);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        // check app version and reset sp if necessary
 
-        double version_number_sp = Double.parseDouble(spStorage.getVersion());
-        int compare_value = Double.compare(version_number,version_number_sp);
-        if (compare_value>0){
-            // app new
-            spStorage.setVersion(String.valueOf(version_number));
-            // set other shared preference to default value
-        }else if (compare_value<0){
-            // app old
-            // no shared pref editing
-        }else {
-            // same version
-            // no shared pref editing
-        }
-        // check db version
-        spDate = spStorage.getDBdate();
-
-        // update if necessary
-
-
-        // first time download the content
-
-        // demo starts ----- replace this piece of code with
-        // splash animation and automated redirection
-        Button demo = (Button) findViewById(R.id.demo);
-        demo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),ProblemLanding.class));
-            }
-        });
-        // end of demo
     }
+
 }
