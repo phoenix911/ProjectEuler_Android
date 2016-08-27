@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                     startActivity(new Intent(getApplicationContext(),ProblemLanding.class));
-                    overridePendingTransition(R.anim.bottomdown,R.anim.bottomdown);
+                    overridePendingTransition(R.anim.bottomup,R.anim.bottomup);
                     finish();
 
 

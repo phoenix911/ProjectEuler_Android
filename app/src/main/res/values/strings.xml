@@ -3,4 +3,13 @@
     <string name="connecting_server">connecting with server</string>
     <string name="blank" />
     <string name="ready">getting you ready</string>
+    <string name="based_on">Based On</string>
+    <string name="number">Number</string>
+    <string name="recent">Recent</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="solved_by">Solved By</string>
+    <string name="number_heading">Based on Number</string>
+    <string name="recent_heading">Recent Problems</string>
+    <string name="difficulty_heading">Based on Difficulty</string>
+    <string name="solved_by_heading">Based on Solved By</string>
 </resources>

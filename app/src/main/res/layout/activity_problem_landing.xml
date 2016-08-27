@@ -9,4 +9,55 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="online.pandaapps.gre.projecteuler.Euler.ProblemLanding">
 
+    <TextView
+        android:id="@+id/basedOnHeading"
+        android:text="@string/based_on"
+        style="@style/tvHeading"
+        />
+
+    <LinearLayout
+        android:id="@+id/buttonDateAndRecent"
+        android:layout_below="@id/basedOnHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="2.2"
+        android:layout_marginTop="25sp"
+        >
+        <Button
+            android:id="@+id/number"
+            style="@style/btLanding"
+            android:text="@string/number"
+             />
+        <Button
+            android:id="@+id/recent"
+            style="@style/btLanding"
+            android:text="@string/recent"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/difficultyAndSolvedBy"
+        android:layout_below="@id/buttonDateAndRecent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="2.2"
+        android:layout_marginTop="25sp"
+        >
+        <Button
+            android:id="@+id/difficulty"
+            style="@style/btLanding"
+            android:text="@string/difficulty"
+            />
+        <Button
+            android:id="@+id/solvedby"
+            style="@style/btLanding"
+            android:text="@string/solved_by"
+            />
+    </LinearLayout>
+
+
 </RelativeLayout>

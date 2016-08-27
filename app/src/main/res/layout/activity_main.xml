@@ -27,14 +27,4 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/loaderImage"
         />
-
-    <!--demo delete the button-->
-
-    <Button
-        android:id="@+id/demo"
-        android:layout_width="wrap_content"
-        android:visibility="invisible"
-        android:layout_height="wrap_content"
-        android:text="start next activity replace it with automated splash"
-        />
 </RelativeLayout>
