@@ -12,4 +12,10 @@
     <string name="recent_heading">Recent Problems</string>
     <string name="difficulty_heading">Based on Difficulty</string>
     <string name="solved_by_heading">Based on Solved By</string>
+
+    <!--fonts-->
+    <string name="font_name_poiretone">poiretone</string>
+    <string name="font_name_arimo_madurai">arimomadurai</string>
+    <string name="list_by">List By</string>
+    <!--end of fonts-->
 </resources>
