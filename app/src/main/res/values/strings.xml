@@ -15,7 +15,9 @@
 
     <!--fonts-->
     <string name="font_name_poiretone">poiretone</string>
-    <string name="font_name_arimo_madurai">arimomadurai</string>
+    <string name="font_name_arimo_madurai">arimamadurai</string>
     <string name="list_by">List By</string>
+    <string name="id_deno">problem 888</string>
+    <string name="problem_demo">Loreum Ipsum Demo Text</string>
     <!--end of fonts-->
 </resources>

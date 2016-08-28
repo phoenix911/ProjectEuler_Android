@@ -28,4 +28,11 @@
         <item name="android:textColor">@color/secondary_text</item>
     </style>
 
+    <style name="tvQuestionList" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_marginLeft">10sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
 </resources>

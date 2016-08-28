@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        card_view:cardCornerRadius="100sp"
+        android:thicknessRatio="1.9"
+        android:layout_margin="2sp"
+        android:layout_height="70sp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <online.pandaapps.gre.projecteuler.Utils.Fonts.CustomFontTV
+                android:id="@+id/problemId"
+                android:text="@string/id_deno"
+                android:layout_below="@+id/problemTitle"
+                style="@style/tvQuestionList"
+                android:textColor="@color/secondary_text"
+                app:font="@string/font_name_arimo_madurai"
+                />
+
+            <online.pandaapps.gre.projecteuler.Utils.Fonts.CustomFontTV
+                android:id="@+id/problemTitle"
+                android:text="@string/problem_demo"
+                android:layout_marginTop="4sp"
+                style="@style/tvQuestionList"
+                android:textSize="25sp"
+                app:font="@string/font_name_arimo_madurai"
+                />
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+
+
+
+
+
+</RelativeLayout>

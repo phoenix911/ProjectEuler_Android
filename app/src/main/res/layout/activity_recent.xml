@@ -8,13 +8,14 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#f2f2f2"
     tools:context="online.pandaapps.gre.projecteuler.Euler.Recent">
 
-    <online.pandaapps.gre.projecteuler.Utils.Fonts.CustomFontTV
-        android:id="@+id/recentHeading"
-        android:text="@string/recent_heading"
-        style="@style/tvHeading"
-        app:font="@string/font_name_poiretone"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/problemsList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
         />
 
 </RelativeLayout>
