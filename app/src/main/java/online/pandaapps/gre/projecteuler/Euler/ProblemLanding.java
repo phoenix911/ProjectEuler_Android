@@ -1,21 +1,27 @@
 package online.pandaapps.gre.projecteuler.Euler;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import online.pandaapps.gre.projecteuler.Constants;
 import online.pandaapps.gre.projecteuler.R;
+import online.pandaapps.gre.projecteuler.Storage.SQLITE3storage;
 
 public class ProblemLanding extends AppCompatActivity implements View.OnClickListener {
 
     Button number,recent,difficulty,solvedBy;
+    SQLITE3storage sqlite3storage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_problem_landing);
+
+        sqlite3storage = new SQLITE3storage(this);
 
         number = (Button) findViewById(R.id.number);
         recent = (Button) findViewById(R.id.recent);
@@ -38,7 +44,9 @@ public class ProblemLanding extends AppCompatActivity implements View.OnClickLis
                 startActivity(new Intent(getApplicationContext(),Number.class));
                 break;
             case R.id.recent:
-                startActivity(new Intent(getApplicationContext(),Recent.class));
+                Intent recentAct = new Intent(getApplicationContext(),Recent.class);
+                recentAct.putExtra(Constants.RecentFlagTitle,Constants.RecentFlagTitleValueRecentButton);
+                startActivity(recentAct);
                 break;
             case R.id.difficulty:
                 startActivity(new Intent(getApplicationContext(),Difficulty.class));

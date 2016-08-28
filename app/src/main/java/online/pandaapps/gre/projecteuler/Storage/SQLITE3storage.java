@@ -2,6 +2,7 @@ package online.pandaapps.gre.projecteuler.Storage;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -48,6 +49,18 @@ public class SQLITE3storage extends SQLiteOpenHelper {
             return true;
         }
 
+    }
+
+    public Cursor getAllByDifficulty(int difficulty){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor result = db.rawQuery("SELECT "+Constants.col1ID+", "+Constants.col5Title+" FROM "+Constants.tableName+" WHERE "+Constants.col4Difficulty+" IS "+difficulty,null);
+        return result;
+    }
+
+    public int getCount(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor result = db.rawQuery("SELECT "+Constants.col1ID+" FROM "+Constants.tableName,null);
+        return result.getCount();
     }
 
 }
