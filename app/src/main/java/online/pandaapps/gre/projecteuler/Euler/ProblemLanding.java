@@ -41,7 +41,9 @@ public class ProblemLanding extends AppCompatActivity implements View.OnClickLis
 
         switch (view.getId()){
             case R.id.number:
-                startActivity(new Intent(getApplicationContext(),Number.class));
+//                startActivity(new Intent(getApplicationContext(),Number.class));
+//                Cursor a = sqlite3storage.getIndividualProblem(200);
+//                System.out.println(a.getColumnCount());
                 break;
             case R.id.recent:
                 Intent recentAct = new Intent(getApplicationContext(),Recent.class);

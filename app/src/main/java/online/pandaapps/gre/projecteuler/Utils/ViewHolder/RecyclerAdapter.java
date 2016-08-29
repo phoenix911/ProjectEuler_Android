@@ -1,11 +1,16 @@
 package online.pandaapps.gre.projecteuler.Utils.ViewHolder;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import online.pandaapps.gre.projecteuler.Constants;
+import online.pandaapps.gre.projecteuler.Euler.SingleProblem;
 import online.pandaapps.gre.projecteuler.R;
 
 /**
@@ -27,7 +32,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.individual_problem, parent, false);
-
         RecyclerViewHolder recyclerViewHolder = new RecyclerViewHolder(view);
 
         return recyclerViewHolder;
@@ -50,8 +54,22 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         TextView tvProblemID,tvProblemTitle;
 
 
-        public RecyclerViewHolder(View view) {
+        public RecyclerViewHolder(final View view) {
             super(view);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String problemNo = tvProblemID.getText().toString();
+                    String[] splited = problemNo.split(" ");
+                    Context context = v.getContext();
+                    Intent indiQuestion = new Intent(context, SingleProblem.class);
+                    indiQuestion.putExtra(Constants.col1ID,splited[1]);
+                    context.startActivity(indiQuestion);
+
+
+                }
+            });
 
             tvProblemID = (TextView) view.findViewById(R.id.problemId);
             tvProblemTitle = (TextView) view.findViewById(R.id.problemTitle);

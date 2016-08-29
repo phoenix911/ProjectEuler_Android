@@ -57,6 +57,12 @@ public class SQLITE3storage extends SQLiteOpenHelper {
         return result;
     }
 
+    public Cursor getIndividualProblem(int ProblemID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor result = db.rawQuery("SELECT * FROM "+Constants.tableName+" WHERE "+Constants.col1ID+" IS "+ProblemID,null);
+        return result;
+    }
+
     public int getCount(){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor result = db.rawQuery("SELECT "+Constants.col1ID+" FROM "+Constants.tableName,null);
