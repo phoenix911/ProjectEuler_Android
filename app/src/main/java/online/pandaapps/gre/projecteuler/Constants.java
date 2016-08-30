@@ -12,7 +12,7 @@ public class Constants {
     public static final String urlDB = "http://pandaapps.online/11235813/euler_db.json";
     public static final String NetworkError = "Check Network Connection.";
     public static final String downloadDBFlag = "dbFlag";
-
+    // db server storage
     public static final String dbName = "EULERDB";
     public static final String tableName = "PROBTABLE";
     public static final String col1ID = "ID";
@@ -23,6 +23,14 @@ public class Constants {
     public static final String col6Problem = "PROBLEM";
     public static final String col7Image = "IMAGE";
     public static final String col8SolvedBY = "SOLVEDBY";
+
+    //db user Storage
+    public static final String dbNameUserStorage = "USER_STORAGE";
+    public static final String tableNameUserStorage = "USER_STORAGE_TABLE";
+    public static final String uCol1ID = "ID";
+    public static final String uCol2comment = "comment";
+    public static final String uCol3remarks = "remarks";
+    public static final String uCol4random = "random";
 
     // first run
     public static final String  MainActivity = "main_activity";

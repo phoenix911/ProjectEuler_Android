@@ -20,6 +20,7 @@ public class SQLITE3storage extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(" create table "+Constants.tableName+" ("+Constants.col1ID+ " INTEGER PRIMARY KEY , "+Constants.col2Date+" STRING, "+Constants.col3Time+" STRING, "+Constants.col4Difficulty+" INTEGER, "+Constants.col5Title+" VARCHAR, "+Constants.col6Problem+" VARCHAR, "+Constants.col7Image+" VARCHAR, "+Constants.col8SolvedBY+" INTEGER) ");
+        sqLiteDatabase.execSQL(" create table "+Constants.tableNameUserStorage+" ("+Constants.col1ID+ " INTEGER PRIMARY KEY , "+Constants.uCol2comment+" VARCHAR, "+Constants.uCol3remarks+" VARCHAR, "+Constants.uCol4random+" VARCHAR) ");
 
 
     }
@@ -68,5 +69,32 @@ public class SQLITE3storage extends SQLiteOpenHelper {
         Cursor result = db.rawQuery("SELECT "+Constants.col1ID+" FROM "+Constants.tableName,null);
         return result.getCount();
     }
+
+    public boolean setComment(int id, String comment) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(Constants.uCol1ID, id);
+        cv.put(Constants.uCol2comment, comment);
+        Cursor present = getComment(id);
+        long res = 0;
+        if (present.getCount() == 0) {
+            res = db.insert(Constants.tableNameUserStorage, null, cv);
+        } else {
+            res = db.update(Constants.tableNameUserStorage, cv, Constants.uCol1ID+" = "+id,null);
+
+        }
+        if (res == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public Cursor getComment(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor result = db.rawQuery("SELECT * FROM "+Constants.tableNameUserStorage+" WHERE "+Constants.col1ID+" IS "+id,null);
+        return result;
+    }
+
 
 }

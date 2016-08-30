@@ -35,4 +35,8 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="alertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">#ffab40</item>
+    </style>
+
 </resources>

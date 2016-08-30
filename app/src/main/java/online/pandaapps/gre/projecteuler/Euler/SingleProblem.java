@@ -1,23 +1,23 @@
 package online.pandaapps.gre.projecteuler.Euler;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Switch;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import online.pandaapps.gre.projecteuler.Constants;
 import online.pandaapps.gre.projecteuler.R;
@@ -29,7 +29,9 @@ public class SingleProblem extends AppCompatActivity {
     int problem_id,difficulty,solved_by;
     String date_published,time_published,title,question,images;
     SQLITE3storage dbStorage;
-    TextView indi_pID,indi_pTitle, indi_question, infoFab, pseudoFab;
+    TextView indiPID, indiPTitle, indiPQuestion, infoFab, pseudoFab;
+
+
 
     FloatingActionButton fab,fab1,fab2;
     Animation fab_open,fab_close,rotate_forward,rotate_backward,textUp,textDown;
@@ -43,9 +45,10 @@ public class SingleProblem extends AppCompatActivity {
         dbStorage = new SQLITE3storage(this);
 
 
+
         Intent getProblemID = getIntent();
         problemID= Integer.parseInt(getProblemID.getStringExtra(Constants.col1ID));
-        Cursor problem = dbStorage.getIndividualProblem(problemID);
+        final Cursor problem = dbStorage.getIndividualProblem(problemID);
         while (problem.moveToNext()){
             problem_id = problem.getInt(0);
             date_published = problem.getString(1);
@@ -54,13 +57,13 @@ public class SingleProblem extends AppCompatActivity {
             title = problem.getString(4);
             question = problem.getString(5);
             images = problem.getString(6);
-            solved_by = problem.getInt(3);
+            solved_by = problem.getInt(7);
 
         }
 
-        indi_pID = (TextView) findViewById(R.id.problemIdIndi);
-        indi_pTitle = (TextView) findViewById(R.id.problemTitleIndi);
-        indi_question = (TextView) findViewById(R.id.problemQuest);
+        indiPID = (TextView) findViewById(R.id.problemIdIndi);
+        indiPTitle = (TextView) findViewById(R.id.problemTitleIndi);
+        indiPQuestion = (TextView) findViewById(R.id.problemQuest);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab1 = (FloatingActionButton) findViewById(R.id.fab1);
         fab2 = (FloatingActionButton) findViewById(R.id.fab2);
@@ -73,16 +76,52 @@ public class SingleProblem extends AppCompatActivity {
         textUp = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.bottomup);
         textDown = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.bottomdown);
 
-        indi_pID.setText("Problem "+problem_id);
-        indi_pTitle.setText(title);
+        final AlertDialog.Builder alertDescription = new AlertDialog.Builder(this,R.style.alertDialog);
+        alertDescription.setTitle("Description for "+problemID);
+        String descriptionMsg = "Difficulty : " + difficulty+"\nPublished On : "+
+                date_published+"\nSolved By : "+solved_by;
+        alertDescription.setMessage(descriptionMsg);
+        alertDescription.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        alertDescription.setCancelable(true);
+
+        final AlertDialog.Builder alertPseudo = new AlertDialog.Builder(this,R.style.alertDialog);
+        alertPseudo.setTitle("your 2 cents on problem "+problemID);
+        final EditText pseudoCode = new EditText(this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(10,10);
+        lp.setMargins(10,2,10,2);
+
+        pseudoCode.setLayoutParams(lp);
+        pseudoCode.setBackgroundColor(00000000);
+        pseudoCode.setHint(" type");
+        alertPseudo.setView(pseudoCode);
+        alertPseudo.setCancelable(false);
+
+        alertPseudo.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                ((ViewGroup)pseudoCode.getParent()).removeView(pseudoCode);
+                String twoCents = pseudoCode.getText().toString();
+                dbStorage.setComment(problemID,twoCents);
+                // put it to database
+            }
+        });
+
+        indiPID.setText("Problem "+problem_id);
+        indiPTitle.setText(title);
         Spanned spannedText;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             spannedText = Html.fromHtml(question,Html.FROM_HTML_MODE_LEGACY);
         } else {
             spannedText = Html.fromHtml(question);
         }
-        indi_question.setMovementMethod(new ScrollingMovementMethod());
-        indi_question.setText(spannedText);
+        indiPQuestion.setMovementMethod(new ScrollingMovementMethod());
+        indiPQuestion.setText(spannedText);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +134,15 @@ public class SingleProblem extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 animateFAB();
-                Toast.makeText(SingleProblem.this, "fab1", Toast.LENGTH_SHORT).show();
+                Cursor comment = dbStorage.getComment(problemID);
+                if (comment.getCount()!=0){
+                    while (comment.moveToNext()){
+                        String commentFromDB = comment.getString(1);
+                        pseudoCode.setText(commentFromDB);
+                    }
+                }
+
+                alertPseudo.show();
             }
         });
 
@@ -103,14 +150,12 @@ public class SingleProblem extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 animateFAB();
-                Toast.makeText(SingleProblem.this, "fab2", Toast.LENGTH_SHORT).show();
+                alertDescription.show();
             }
         });
 
 
     }
-
-
 
 
     public void animateFAB(){

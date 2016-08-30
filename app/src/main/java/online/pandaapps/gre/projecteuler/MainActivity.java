@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("first run");
             spStorage.setMainActivityFirstRun(1);
             Volley.newRequestQueue(getApplicationContext()).add(getEulerDB);
+            dbStorage.setComment(0,"abc");
 
             // download db and save to storage
             // first run
