@@ -41,9 +41,9 @@ public class ProblemLanding extends AppCompatActivity implements View.OnClickLis
 
         switch (view.getId()){
             case R.id.number:
-//                startActivity(new Intent(getApplicationContext(),Number.class));
-//                Cursor a = sqlite3storage.getIndividualProblem(200);
-//                System.out.println(a.getColumnCount());
+                Intent numberAct = new Intent(getApplicationContext(),Number.class);
+                numberAct.putExtra(Constants.nAndDFlag,"1");
+                startActivity(numberAct);
                 break;
             case R.id.recent:
                 Intent recentAct = new Intent(getApplicationContext(),Recent.class);
@@ -51,10 +51,13 @@ public class ProblemLanding extends AppCompatActivity implements View.OnClickLis
                 startActivity(recentAct);
                 break;
             case R.id.difficulty:
-                startActivity(new Intent(getApplicationContext(),Difficulty.class));
+                Intent difficultyAct = new Intent(getApplicationContext(),Number.class);
+                difficultyAct.putExtra(Constants.nAndDFlag,"2");
+                startActivity(difficultyAct);
                 break;
             case R.id.solvedby:
-                startActivity(new Intent(getApplicationContext(),SolvedBy.class));
+                Intent solvedByAct = new Intent(getApplicationContext(),SolvedBy.class);
+                startActivity(solvedByAct);
                 break;
         }
 

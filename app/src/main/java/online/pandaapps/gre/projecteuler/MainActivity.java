@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
                         overridePendingTransition(R.anim.bottomup,R.anim.bottomup);
                         finish();
                     }
-                }, 2000);
+                }, 2500);
             }
 
         }

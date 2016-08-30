@@ -46,8 +46,17 @@ public class Recent extends AppCompatActivity {
                 problems = dbStorage.getAllByDifficulty(0);
                 break;
             case 2:
+                int start = Integer.parseInt(getFlag.getStringExtra("first_problem").trim());
+                int end = start+24;
+                problems = dbStorage.getInRange(start,end);
+                break;
+            case 3:
+                int difficulty = Integer.parseInt(getFlag.getStringExtra("first_problem").trim());
+                problems = dbStorage.getAllByDifficulty(difficulty);
                 break;
         }
+
+
 
         if (problems.getCount() == 0){
             // show no question available
@@ -72,22 +81,6 @@ public class Recent extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
-        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-            @Override
-            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-                return false;
-            }
-
-            @Override
-            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-            }
-        });
 
     }
 }

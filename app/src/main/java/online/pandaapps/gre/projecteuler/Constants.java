@@ -38,4 +38,6 @@ public class Constants {
     public static final String  RecentFlagTitle = "recentFlag";
     public static final String  RecentFlagTitleValueRecentButton = "1"; // recent button
 
+    public static final String nAndDFlag = "nAndD";
+
 }

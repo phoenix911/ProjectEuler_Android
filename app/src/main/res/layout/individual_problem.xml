@@ -30,6 +30,9 @@
                 android:text="@string/problem_demo"
                 android:layout_marginTop="4sp"
                 style="@style/tvQuestionList"
+                android:ellipsize="end"
+                android:maxEms="25"
+                android:singleLine="true"
                 android:textSize="25sp"
                 app:font="@string/font_name_arimo_madurai"
                 />

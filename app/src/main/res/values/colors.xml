@@ -8,5 +8,6 @@
     <color name="white">#ffffff</color>
     <color name="fab_color">#d50000</color>
     <color name="colorFAB1">#2196F3</color>
+    <color name="colorFAB3">#2160f3</color>
     <color name="colorFAB2">#40dffb</color>
 </resources>

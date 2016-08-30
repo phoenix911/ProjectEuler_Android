@@ -96,5 +96,14 @@ public class SQLITE3storage extends SQLiteOpenHelper {
         return result;
     }
 
+    public Cursor getInRange(int start,int end){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor result = db.rawQuery("SELECT "
+                +Constants.col1ID+", "+Constants.col5Title
+                +" FROM "+Constants.tableName+" WHERE "
+                +Constants.col1ID+" BETWEEN "+start+" AND "+end,null);
+        return result;
+    }
+
 
 }
