@@ -59,7 +59,7 @@
         <online.pandaapps.gre.projecteuler.Utils.Fonts.CustomFontButton
             android:id="@+id/solvedby"
             style="@style/btLanding"
-            android:text="@string/solved_by"
+            android:text="@string/news"
             app:font="@string/font_name_poiretone"
             />
     </LinearLayout>

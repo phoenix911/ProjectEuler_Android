@@ -45,10 +45,8 @@ public class RecyclerAdapterGridView extends RecyclerView.Adapter<RecyclerAdapte
 
         if (nAndD == num){
             holder.tvProblemGroup.setText(ProblemList[position] + "+ ");
-            holder.cv.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.colorFAB3));
         }else if (nAndD == diff){
             holder.tvProblemGroup.setText(ProblemList[position]+"");
-            holder.cv.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.colorFAB1));
 
         }
 

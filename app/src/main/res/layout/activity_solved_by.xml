@@ -10,11 +10,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="online.pandaapps.gre.projecteuler.Euler.SolvedBy">
 
-    <online.pandaapps.gre.projecteuler.Utils.Fonts.CustomFontTV
-        android:id="@+id/solvedByHeading"
-        android:text="@string/solved_by_heading"
-        style="@style/tvHeading"
-        app:font="@string/font_name_poiretone"
-        />
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </WebView>
 
 </RelativeLayout>
