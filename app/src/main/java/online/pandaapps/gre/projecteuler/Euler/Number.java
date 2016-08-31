@@ -18,6 +18,7 @@ import online.pandaapps.gre.projecteuler.R;
 import online.pandaapps.gre.projecteuler.Storage.SQLITE3storage;
 import online.pandaapps.gre.projecteuler.Utils.ViewHolder.RecyclerAdapter;
 import online.pandaapps.gre.projecteuler.Utils.ViewHolder.RecyclerAdapterGridView;
+import online.pandaapps.gre.projecteuler.Utils.gridLayoutRecyclerViewSpacing.GridElementDecorator;
 
 public class Number extends AppCompatActivity {
 
@@ -72,7 +73,8 @@ public class Number extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
-
+        GridElementDecorator gridDecor = new GridElementDecorator(this,R.dimen.grid_element);
+        recyclerView.addItemDecoration(gridDecor);
 
 
     }
