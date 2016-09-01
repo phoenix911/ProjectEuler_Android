@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import online.pandaapps.gre.projecteuler.Constants;
+import online.pandaapps.gre.projecteuler.Utils.Constants;
 
 /**
  * Created by sangeet on 27/08/16.
@@ -21,8 +21,6 @@ public class SQLITE3storage extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(" create table "+Constants.tableName+" ("+Constants.col1ID+ " INTEGER PRIMARY KEY , "+Constants.col2Date+" STRING, "+Constants.col3Time+" STRING, "+Constants.col4Difficulty+" INTEGER, "+Constants.col5Title+" VARCHAR, "+Constants.col6Problem+" VARCHAR, "+Constants.col7Image+" VARCHAR, "+Constants.col8SolvedBY+" INTEGER) ");
         sqLiteDatabase.execSQL(" create table "+Constants.tableNameUserStorage+" ("+Constants.col1ID+ " INTEGER PRIMARY KEY , "+Constants.uCol2comment+" VARCHAR, "+Constants.uCol3remarks+" VARCHAR, "+Constants.uCol4random+" VARCHAR) ");
-
-
     }
 
     @Override
@@ -53,19 +51,19 @@ public class SQLITE3storage extends SQLiteOpenHelper {
     }
 
     public Cursor getAllByDifficulty(int difficulty){
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor result = db.rawQuery("SELECT "+Constants.col1ID+", "+Constants.col5Title+" FROM "+Constants.tableName+" WHERE "+Constants.col4Difficulty+" IS "+difficulty,null);
         return result;
     }
 
     public Cursor getIndividualProblem(int ProblemID){
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor result = db.rawQuery("SELECT * FROM "+Constants.tableName+" WHERE "+Constants.col1ID+" IS "+ProblemID,null);
         return result;
     }
 
     public int getCount(){
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor result = db.rawQuery("SELECT "+Constants.col1ID+" FROM "+Constants.tableName,null);
         return result.getCount();
     }
@@ -91,13 +89,13 @@ public class SQLITE3storage extends SQLiteOpenHelper {
     }
 
     public Cursor getComment(int id){
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor result = db.rawQuery("SELECT * FROM "+Constants.tableNameUserStorage+" WHERE "+Constants.col1ID+" IS "+id,null);
         return result;
     }
 
     public Cursor getInRange(int start,int end){
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor result = db.rawQuery("SELECT "
                 +Constants.col1ID+", "+Constants.col5Title
                 +" FROM "+Constants.tableName+" WHERE "

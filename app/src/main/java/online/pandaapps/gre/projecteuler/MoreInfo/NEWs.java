@@ -21,7 +21,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 
-import online.pandaapps.gre.projecteuler.Constants;
+import online.pandaapps.gre.projecteuler.Utils.Constants;
 import online.pandaapps.gre.projecteuler.R;
 
 public class NEWs extends AppCompatActivity {

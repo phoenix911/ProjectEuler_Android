@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import online.pandaapps.gre.projecteuler.Constants;
+import online.pandaapps.gre.projecteuler.Utils.Constants;
 import online.pandaapps.gre.projecteuler.MoreInfo.NEWs;
 import online.pandaapps.gre.projecteuler.R;
 import online.pandaapps.gre.projecteuler.Storage.SQLITE3storage;

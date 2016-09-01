@@ -1,4 +1,4 @@
-package online.pandaapps.gre.projecteuler;
+package online.pandaapps.gre.projecteuler.Utils;
 
 /**
  * Created by sangeet on 26/08/16.

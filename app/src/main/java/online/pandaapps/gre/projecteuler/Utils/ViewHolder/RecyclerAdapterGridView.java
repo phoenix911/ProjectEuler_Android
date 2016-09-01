@@ -1,18 +1,15 @@
 package online.pandaapps.gre.projecteuler.Utils.ViewHolder;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.IntegerRes;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.TextView;
 
-import online.pandaapps.gre.projecteuler.Constants;
+import online.pandaapps.gre.projecteuler.Utils.Constants;
 import online.pandaapps.gre.projecteuler.Euler.Recent;
 import online.pandaapps.gre.projecteuler.R;
 

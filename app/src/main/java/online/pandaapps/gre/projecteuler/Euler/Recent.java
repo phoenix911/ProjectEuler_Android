@@ -2,17 +2,12 @@ package online.pandaapps.gre.projecteuler.Euler;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
-import android.view.View;
 
-import java.util.Arrays;
-
-import online.pandaapps.gre.projecteuler.Constants;
+import online.pandaapps.gre.projecteuler.Utils.Constants;
 import online.pandaapps.gre.projecteuler.R;
 import online.pandaapps.gre.projecteuler.Storage.SQLITE3storage;
 import online.pandaapps.gre.projecteuler.Utils.ViewHolder.RecyclerAdapter;

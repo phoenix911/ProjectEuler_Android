@@ -3,7 +3,7 @@ package online.pandaapps.gre.projecteuler.Storage;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import online.pandaapps.gre.projecteuler.Constants;
+import online.pandaapps.gre.projecteuler.Utils.Constants;
 
 /**
  * Created by sangeet on 26/08/16.
