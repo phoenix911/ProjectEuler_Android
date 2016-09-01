@@ -34,9 +34,9 @@
     <string name="col5">News</string>
     <string name="col6">About Project Euler</string>
     <string name="col7">About App</string>
+    <string name="col8">last update:</string>
 
     <!--end of nav drawer-->
-
 
 
 </resources>

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import online.pandaapps.gre.projecteuler.SwipeMenu.BaseActivity;
 import online.pandaapps.gre.projecteuler.Utils.Constants;
@@ -18,6 +19,7 @@ public class Recent extends BaseActivity {
     SQLITE3storage dbStorage;
     Cursor problems;
     String[] problemID,problemTitle;
+    TextView topText;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -27,6 +29,8 @@ public class Recent extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recent);
+
+        topText = (TextView) findViewById(R.id.textTop);
 
         recyclerView = (RecyclerView) findViewById(R.id.problemsList);
 //        adapter = new RecyclerAdapter()
@@ -39,20 +43,24 @@ public class Recent extends BaseActivity {
         switch (Flag){
             case 1:
                 // from recent button
+                topText.setText("New Problems");
                 problems = dbStorage.getAllByDifficulty(0);
                 break;
             case 2:
                 int start = Integer.parseInt(getFlag.getStringExtra("first_problem").trim());
                 int end = start+24;
+                String top = "From Problem "+start+" to "+end;
+                topText.setTextSize(22);
+                topText.setText(top);
                 problems = dbStorage.getInRange(start,end);
                 break;
             case 3:
                 int difficulty = Integer.parseInt(getFlag.getStringExtra("first_problem").trim());
+                top = "Difficulty: "+ difficulty;
+                topText.setText(top);
                 problems = dbStorage.getAllByDifficulty(difficulty);
                 break;
         }
-
-
 
         if (problems.getCount() == 0){
             // show no question available

@@ -15,8 +15,10 @@ import android.widget.FrameLayout;
 import online.pandaapps.gre.projecteuler.Euler.Number;
 import online.pandaapps.gre.projecteuler.Euler.ProblemLanding;
 import online.pandaapps.gre.projecteuler.Euler.Recent;
+import online.pandaapps.gre.projecteuler.MoreInfo.AboutApp;
 import online.pandaapps.gre.projecteuler.MoreInfo.NEWs;
 import online.pandaapps.gre.projecteuler.R;
+import online.pandaapps.gre.projecteuler.Storage.SharedPrefStorage;
 import online.pandaapps.gre.projecteuler.Utils.Constants;
 
 public class BaseActivity extends AppCompatActivity
@@ -40,6 +42,13 @@ public class BaseActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         navigationView = (NavigationView) findViewById(R.id.navigationView);
         navigationView.setItemIconTintList(null);
+
+        // setting updated dated not necessary for other app
+        SharedPrefStorage sp = new SharedPrefStorage(this);
+        String[] du = sp.getDBdate().split("-");
+        navigationView.getMenu().getItem(7)
+                .setTitle("Updated On: "+du[0]+"/"+du[1]+"/"+du[2].substring(Math.max(du[2].length() - 2, 0)));
+        // end of updating date
 
         if (useToolbar())
         {
@@ -105,6 +114,8 @@ public class BaseActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+
+
         //noinspection SimplifiableIfStatement
         switch (id)
         {
@@ -144,9 +155,11 @@ public class BaseActivity extends AppCompatActivity
                 startActivity(col6);
                 return true;
             case R.id.col7:
-                Intent col7 = new Intent(this, ProblemLanding.class);
+                Intent col7 = new Intent(this, AboutApp.class);
                 col7.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(col7);
+                return true;
+            case R.id.col8:
                 return true;
         }
 

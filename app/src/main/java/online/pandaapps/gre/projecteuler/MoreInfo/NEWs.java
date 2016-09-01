@@ -3,10 +3,10 @@ package online.pandaapps.gre.projecteuler.MoreInfo;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.TextView;
 
 import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
@@ -34,6 +34,7 @@ public class NEWs extends BaseActivity {
     Document document;
     ProgressDialog progress;
     int nORaKey;
+    TextView topText;
 
 
     @Override
@@ -41,11 +42,16 @@ public class NEWs extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solved_by);
 
+        topText = (TextView) findViewById(R.id.textTop);
+
+
         Intent nORa = getIntent();
         nORaKey=nORa.getIntExtra(Constants.newsORaboutFlag,0);
         if (nORaKey == Constants.news){
+            topText.setText("NEWS");
             link = "https://projecteuler.net/news";
         }else if (nORaKey == Constants.about){
+            topText.setText("About Project Euler");
             link = "https://projecteuler.net/about";
         }
 

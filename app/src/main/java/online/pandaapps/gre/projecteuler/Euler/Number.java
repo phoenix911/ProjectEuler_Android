@@ -29,7 +29,7 @@ public class Number extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_number);
 
-        topText = (TextView) findViewById(R.id.titleNum);
+        topText = (TextView) findViewById(R.id.textTop);
         dbStorage = new SQLITE3storage(this);
 
 

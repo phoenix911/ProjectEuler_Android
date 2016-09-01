@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/whitedirty"
+    android:minWidth="300dp"
+    android:minHeight="400dp"
+    android:layout_height="match_parent">
+
+    <online.pandaapps.gre.projecteuler.Utils.Fonts.CustomFontTV
+        android:id="@+id/pseudoTV"
+        android:text="Pseudo code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        app:font="@string/font_name_arimo_madurai"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/primary_text"
+        android:textSize="16sp"
+        />
+    <View
+        android:id="@+id/view1"
+        android:layout_below="@+id/pseudoTV"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
+        android:background="#c0c0c0"/>
+    <online.pandaapps.gre.projecteuler.Utils.Fonts.CustomFontET
+        android:id="@+id/tvpseudoCode"
+        android:layout_below="@+id/view1"
+        android:layout_margin="15sp"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:background="@android:color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="pseudo code"
+        app:font="@string/font_name_poiretone"
+        android:layout_height="wrap_content" />
+    <online.pandaapps.gre.projecteuler.Utils.Fonts.CustomFontButton
+        android:id="@+id/btOK"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="45sp"
+        android:layout_marginTop="10dp"
+        android:text="SAVE"
+        app:font="@string/font_name_poiretone"
+        android:textColor="@color/white"
+        android:background="@color/button"
+        android:layout_gravity="center"
+        />
+
+</RelativeLayout>

@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         card_view:cardCornerRadius="100sp"
         android:thicknessRatio="2.5"
-        android:layout_weight="1.3"
+        android:layout_weight="8.5"
         android:layout_margin="2sp"
         android:layout_height="0sp">
         <RelativeLayout
@@ -28,16 +28,8 @@
             android:layout_height="match_parent">
 
             <online.pandaapps.gre.projecteuler.Utils.Fonts.CustomFontTV
-                android:id="@+id/problemIdIndi"
-                android:text="@string/id_deno"
-                android:layout_below="@+id/problemTitleIndi"
-                style="@style/tvQuestionList"
-                android:textColor="@color/secondary_text"
-                app:font="@string/font_name_arimo_madurai"
-                />
-
-            <online.pandaapps.gre.projecteuler.Utils.Fonts.CustomFontTV
                 android:id="@+id/problemTitleIndi"
+                android:layout_height="match_parent"
                 android:text="@string/problem_demo"
                 android:layout_marginTop="4sp"
                 style="@style/tvQuestionList"
@@ -54,7 +46,7 @@
         card_view:cardCornerRadius="100sp"
         android:thicknessRatio="1.5"
         android:layout_margin="2sp"
-        android:layout_weight="8.7"
+        android:layout_weight="1.5"
         android:layout_height="0sp">
 
         <TextView

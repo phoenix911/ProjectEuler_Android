@@ -30,4 +30,9 @@
         android:id="@+id/col7"
         android:icon="@drawable/icon_about"
         android:title="@string/col7"/>
+
+    <item
+        android:id="@+id/col8"
+        android:icon="@drawable/icon_update"
+        android:title="@string/col8"/>
 </menu>

@@ -23,7 +23,8 @@
         <activity android:name=".Euler.Recent" />
         <activity android:name=".MoreInfo.NEWs" />
         <activity android:name=".Euler.SingleProblem" />
-        <activity android:name=".SwipeMenu.BaseActivity"></activity>
+        <activity android:name=".SwipeMenu.BaseActivity" />
+        <activity android:name=".MoreInfo.AboutApp"></activity>
     </application>
 
 </manifest>

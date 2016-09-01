@@ -1,9 +1,12 @@
 package online.pandaapps.gre.projecteuler.Euler;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,9 +16,13 @@ import android.text.Spanned;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -30,22 +37,19 @@ public class SingleProblem extends BaseActivity {
     int problem_id,difficulty,solved_by;
     String date_published,time_published,title,question,images;
     SQLITE3storage dbStorage;
-    TextView indiPID, indiPTitle, indiPQuestion, infoFab, pseudoFab;
-
+    TextView indiPTitle, indiPQuestion, infoFab, pseudoFab;
+    TextView topText;
 
 
     FloatingActionButton fab,fab1,fab2;
     Animation fab_open,fab_close,rotate_forward,rotate_backward,textUp,textDown;
     Boolean isFabOpen = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_problem);
 
         dbStorage = new SQLITE3storage(this);
-
-
 
         Intent getProblemID = getIntent();
         problemID= Integer.parseInt(getProblemID.getStringExtra(Constants.col1ID));
@@ -62,9 +66,9 @@ public class SingleProblem extends BaseActivity {
 
         }
 
-        indiPID = (TextView) findViewById(R.id.problemIdIndi);
         indiPTitle = (TextView) findViewById(R.id.problemTitleIndi);
         indiPQuestion = (TextView) findViewById(R.id.problemQuest);
+        topText = (TextView) findViewById(R.id.textTop);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab1 = (FloatingActionButton) findViewById(R.id.fab1);
         fab2 = (FloatingActionButton) findViewById(R.id.fab2);
@@ -90,30 +94,57 @@ public class SingleProblem extends BaseActivity {
         });
         alertDescription.setCancelable(true);
 
-        final AlertDialog.Builder alertPseudo = new AlertDialog.Builder(this,R.style.alertDialog);
-        alertPseudo.setTitle("your 2 cents on problem "+problemID);
-        final EditText pseudoCode = new EditText(this);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(10,10);
-        lp.setMargins(10,2,10,2);
 
-        pseudoCode.setLayoutParams(lp);
-        pseudoCode.setBackgroundColor(00000000);
-        pseudoCode.setHint(" type");
-        alertPseudo.setView(pseudoCode);
-        alertPseudo.setCancelable(false);
+        String top = "Problem: "+ problemID;
+        topText.setText(top);
+//        final AlertDialog.Builder alertPseudo = new AlertDialog.Builder(this,R.style.alertDialog);
+//        alertPseudo.setTitle("your 2 cents on problem "+problemID);
+//        final EditText pseudoCode = new EditText(this);
+//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(10,10);
+//        lp.setMargins(10,2,10,2);
+//
+//        pseudoCode.setLayoutParams(lp);
+//        pseudoCode.setBackgroundColor(00000000);
+//        pseudoCode.setHint(" type");
+//        alertPseudo.setView(pseudoCode);
+//        alertPseudo.setCancelable(false);
+//
+//        alertPseudo.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                dialogInterface.dismiss();
+//                ((ViewGroup)pseudoCode.getParent()).removeView(pseudoCode);
+//                String twoCents = pseudoCode.getText().toString();
+//                dbStorage.setComment(problemID,twoCents);
+//                // put it to database
+//            }
+//        });
 
-        alertPseudo.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        final Dialog UserInputPseudo = new Dialog(SingleProblem.this, android.R.style.Theme_Black_NoTitleBar);
+        UserInputPseudo.setCancelable(false);
+        UserInputPseudo.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        UserInputPseudo.setContentView(R.layout.dialog_show_tut);
+        UserInputPseudo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        final EditText pseudoCode = (EditText) UserInputPseudo.findViewById(R.id.tvpseudoCode);
+        Button OK = (Button) UserInputPseudo.findViewById(R.id.btOK);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(UserInputPseudo.getWindow().getAttributes());
+        lp.width = 500;
+        lp.height = 500;
+        OK.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
+            public void onClick(View view) {
+                UserInputPseudo.dismiss();
                 ((ViewGroup)pseudoCode.getParent()).removeView(pseudoCode);
                 String twoCents = pseudoCode.getText().toString();
                 dbStorage.setComment(problemID,twoCents);
-                // put it to database
+
             }
         });
+        UserInputPseudo.getWindow().setAttributes(lp);
 
-        indiPID.setText("Problem "+problem_id);
+
+
         indiPTitle.setText(title);
         Spanned spannedText;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
@@ -143,7 +174,7 @@ public class SingleProblem extends BaseActivity {
                     }
                 }
 
-                alertPseudo.show();
+                UserInputPseudo.show();
             }
         });
 
