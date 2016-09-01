@@ -23,8 +23,7 @@
 
         <activity android:name=".Euler.Number" />
         <activity android:name=".Euler.Recent" />
-        <activity android:name=".Euler.Difficulty" />
-        <activity android:name=".Euler.SolvedBy" />
+        <activity android:name=".MoreInfo.NEWs" />
         <activity android:name=".Euler.SingleProblem"></activity>
     </application>
 

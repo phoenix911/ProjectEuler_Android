@@ -1,7 +1,7 @@
-package online.pandaapps.gre.projecteuler.Euler;
+package online.pandaapps.gre.projecteuler.MoreInfo;
 
 import android.app.ProgressDialog;
-import android.os.StrictMode;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,20 +20,19 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
 
 import online.pandaapps.gre.projecteuler.Constants;
 import online.pandaapps.gre.projecteuler.R;
 
-public class SolvedBy extends AppCompatActivity {
+public class NEWs extends AppCompatActivity {
 
     WebView webview;
     Elements elements;
     String data ;
-    String url = "https://projecteuler.net/news";
+    String link;
     Document document;
     ProgressDialog progress;
-//    String url = "https://projecteuler.net/rss2_euler.xml";
+    int nORaKey;
 
 
     @Override
@@ -41,8 +40,13 @@ public class SolvedBy extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solved_by);
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        Intent nORa = getIntent();
+        nORaKey=nORa.getIntExtra(Constants.newsORaboutFlag,0);
+        if (nORaKey == Constants.news){
+            link = "https://projecteuler.net/news";
+        }else if (nORaKey == Constants.about){
+            link = "https://projecteuler.net/about";
+        }
 
         progress=new ProgressDialog(this);
         progress.setMessage("fetching data");
@@ -56,7 +60,7 @@ public class SolvedBy extends AppCompatActivity {
 
 
 
-        StringRequest documentReq = new StringRequest(Request.Method.GET, url,
+        StringRequest documentReq = new StringRequest(Request.Method.GET, link,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -70,7 +74,7 @@ public class SolvedBy extends AppCompatActivity {
                         }
                         String mime = "text/html";
                         String encoding = "utf-8";
-                        webview.loadDataWithBaseURL(url, data, mime, encoding, null);
+                        webview.loadDataWithBaseURL(link, data, mime, encoding, null);
                         webview.getSettings().setLoadsImagesAutomatically(true);
                         webview.getSettings().setJavaScriptEnabled(true);
                         webview.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);

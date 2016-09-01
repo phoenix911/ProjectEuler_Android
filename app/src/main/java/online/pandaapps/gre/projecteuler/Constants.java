@@ -40,4 +40,8 @@ public class Constants {
 
     public static final String nAndDFlag = "nAndD";
 
+    public static final String newsORaboutFlag = "nORa";
+    public static final int news = 1;
+    public static final int about = 2;
+
 }

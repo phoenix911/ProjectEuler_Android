@@ -1,13 +1,13 @@
 package online.pandaapps.gre.projecteuler.Euler;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import online.pandaapps.gre.projecteuler.Constants;
+import online.pandaapps.gre.projecteuler.MoreInfo.NEWs;
 import online.pandaapps.gre.projecteuler.R;
 import online.pandaapps.gre.projecteuler.Storage.SQLITE3storage;
 
@@ -56,8 +56,9 @@ public class ProblemLanding extends AppCompatActivity implements View.OnClickLis
                 startActivity(difficultyAct);
                 break;
             case R.id.solvedby:
-                Intent solvedByAct = new Intent(getApplicationContext(),SolvedBy.class);
-                startActivity(solvedByAct);
+                Intent news = new Intent(getApplicationContext(),NEWs.class);
+                news.putExtra(Constants.newsORaboutFlag,Constants.news);
+                startActivity(news);
                 break;
         }
 
