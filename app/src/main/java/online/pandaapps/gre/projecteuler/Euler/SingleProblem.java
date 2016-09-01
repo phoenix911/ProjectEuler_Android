@@ -19,11 +19,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import online.pandaapps.gre.projecteuler.SwipeMenu.BaseActivity;
 import online.pandaapps.gre.projecteuler.Utils.Constants;
 import online.pandaapps.gre.projecteuler.R;
 import online.pandaapps.gre.projecteuler.Storage.SQLITE3storage;
 
-public class SingleProblem extends AppCompatActivity {
+public class SingleProblem extends BaseActivity {
 
     int problemID;
     int problem_id,difficulty,solved_by;

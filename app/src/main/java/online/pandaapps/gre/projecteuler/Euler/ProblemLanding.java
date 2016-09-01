@@ -6,12 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import online.pandaapps.gre.projecteuler.SwipeMenu.BaseActivity;
 import online.pandaapps.gre.projecteuler.Utils.Constants;
 import online.pandaapps.gre.projecteuler.MoreInfo.NEWs;
 import online.pandaapps.gre.projecteuler.R;
 import online.pandaapps.gre.projecteuler.Storage.SQLITE3storage;
 
-public class ProblemLanding extends AppCompatActivity implements View.OnClickListener {
+public class ProblemLanding extends BaseActivity implements View.OnClickListener {
 
     Button number,recent,difficulty,solvedBy;
     SQLITE3storage sqlite3storage;

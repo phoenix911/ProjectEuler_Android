@@ -7,12 +7,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import online.pandaapps.gre.projecteuler.SwipeMenu.BaseActivity;
 import online.pandaapps.gre.projecteuler.Utils.Constants;
 import online.pandaapps.gre.projecteuler.R;
 import online.pandaapps.gre.projecteuler.Storage.SQLITE3storage;
 import online.pandaapps.gre.projecteuler.Utils.ViewHolder.RecyclerAdapter;
 
-public class Recent extends AppCompatActivity {
+public class Recent extends BaseActivity {
 
     SQLITE3storage dbStorage;
     Cursor problems;

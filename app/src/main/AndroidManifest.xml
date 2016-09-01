@@ -19,12 +19,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".Euler.ProblemLanding" />
-
-
         <activity android:name=".Euler.Number" />
         <activity android:name=".Euler.Recent" />
         <activity android:name=".MoreInfo.NEWs" />
-        <activity android:name=".Euler.SingleProblem"></activity>
+        <activity android:name=".Euler.SingleProblem" />
+        <activity android:name=".SwipeMenu.BaseActivity"></activity>
     </application>
 
 </manifest>

@@ -22,5 +22,21 @@
     <string name="news">news</string>
     <!--end of fonts-->
 
+    <!--nav drawer strings-->
+
+    <string name="nav_drawer_opened">drawer opened</string>
+    <string name="nav_drawer_closed">drawer closed</string>
+    <string name="action_settings">Settings</string>
+    <string name="col1">Home</string>
+    <string name="col2">Recent Problems</string>
+    <string name="col3">Serialized Questions</string>
+    <string name="col4">Difficulty Based</string>
+    <string name="col5">News</string>
+    <string name="col6">About Project Euler</string>
+    <string name="col7">About App</string>
+
+    <!--end of nav drawer-->
+
+
 
 </resources>

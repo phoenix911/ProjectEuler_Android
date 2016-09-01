@@ -7,13 +7,14 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import online.pandaapps.gre.projecteuler.SwipeMenu.BaseActivity;
 import online.pandaapps.gre.projecteuler.Utils.Constants;
 import online.pandaapps.gre.projecteuler.R;
 import online.pandaapps.gre.projecteuler.Storage.SQLITE3storage;
 import online.pandaapps.gre.projecteuler.Utils.ViewHolder.RecyclerAdapterGridView;
 import online.pandaapps.gre.projecteuler.Utils.gridLayoutRecyclerViewSpacing.GridElementDecorator;
 
-public class Number extends AppCompatActivity {
+public class Number extends BaseActivity {
 
     SQLITE3storage dbStorage;
     String[] problemList;
