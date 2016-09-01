@@ -21,10 +21,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 
+import online.pandaapps.gre.projecteuler.SwipeMenu.BaseActivity;
 import online.pandaapps.gre.projecteuler.Utils.Constants;
 import online.pandaapps.gre.projecteuler.R;
 
-public class NEWs extends AppCompatActivity {
+public class NEWs extends BaseActivity {
 
     WebView webview;
     Elements elements;

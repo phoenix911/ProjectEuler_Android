@@ -14,7 +14,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="@color/colorAccent"
+            android:background="@color/colorFAB1"
             android:layout_gravity="center"
             android:gravity="center"
             app:theme="@style/MainActionBar">
