@@ -106,9 +106,7 @@ public class SingleProblem extends BaseActivity {
             time_published = problem.getString(2);
             difficulty = problem.getInt(3);
             title = problem.getString(4);
-            question = problem.getString(5);
-            images = problem.getString(6);
-            solved_by = problem.getInt(7);
+            solved_by = problem.getInt(5);
 
         }
 

@@ -107,9 +107,7 @@ public class MainActivity extends AppCompatActivity {
                         int solvedBy = indiQuestion.getInt("solved_by");
                         String datePublished = indiQuestion.getString("date");
                         String timePublished = indiQuestion.getString("time");
-                        String problem = indiQuestion.getString("problem");
-                        String images_link = indiQuestion.getString("image_links");
-                        dbStorage.insertData(slNo, datePublished, timePublished, problem, title, difficulty, solvedBy, images_link);
+                        dbStorage.insertData(slNo, datePublished, timePublished, title, difficulty, solvedBy);
 
                     }
                     startActivity(new Intent(getApplicationContext(),ProblemLanding.class));

@@ -19,7 +19,7 @@ public class SQLITE3storage extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(" create table "+Constants.tableName+" ("+Constants.col1ID+ " INTEGER PRIMARY KEY , "+Constants.col2Date+" STRING, "+Constants.col3Time+" STRING, "+Constants.col4Difficulty+" INTEGER, "+Constants.col5Title+" VARCHAR, "+Constants.col6Problem+" VARCHAR, "+Constants.col7Image+" VARCHAR, "+Constants.col8SolvedBY+" INTEGER) ");
+        sqLiteDatabase.execSQL(" create table "+Constants.tableName+" ("+Constants.col1ID+ " INTEGER PRIMARY KEY , "+Constants.col2Date+" STRING, "+Constants.col3Time+" STRING, "+Constants.col4Difficulty+" INTEGER, "+Constants.col5Title+" VARCHAR, "+Constants.col8SolvedBY+" INTEGER) ");
         sqLiteDatabase.execSQL(" create table "+Constants.tableNameUserStorage+" ("+Constants.col1ID+ " INTEGER PRIMARY KEY , "+Constants.uCol2comment+" VARCHAR, "+Constants.uCol3remarks+" VARCHAR, "+Constants.uCol4random+" VARCHAR) ");
     }
 
@@ -30,7 +30,7 @@ public class SQLITE3storage extends SQLiteOpenHelper {
 
     }
 
-    public boolean insertData(int id, String date,String time,String problem, String title, int difficulty, int solved_by, String images){
+    public boolean insertData(int id, String date,String time, String title, int difficulty, int solved_by){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constants.col1ID,id);
@@ -38,8 +38,6 @@ public class SQLITE3storage extends SQLiteOpenHelper {
         contentValues.put(Constants.col3Time,time);
         contentValues.put(Constants.col4Difficulty,difficulty);
         contentValues.put(Constants.col5Title,title);
-        contentValues.put(Constants.col6Problem,problem);
-        contentValues.put(Constants.col7Image,images);
         contentValues.put(Constants.col8SolvedBY,solved_by);
         long result = db.insert(Constants.tableName,null,contentValues);
         if (result == -1){
