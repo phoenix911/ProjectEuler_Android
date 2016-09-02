@@ -33,5 +33,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:24.2.0'
     // jsoup dependency
     compile 'org.jsoup:jsoup:1.9.2'
+    //Math Jax
+    compile 'io.github.kexanie.library:MathView:0.0.6'
 
 }

@@ -1,6 +1,7 @@
 package online.pandaapps.gre.projecteuler.Euler;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -8,6 +9,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,11 +22,24 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.android.volley.NoConnectionError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import online.pandaapps.gre.projecteuler.SwipeMenu.BaseActivity;
 import online.pandaapps.gre.projecteuler.Utils.Constants;
@@ -37,8 +52,39 @@ public class SingleProblem extends BaseActivity {
     int problem_id,difficulty,solved_by;
     String date_published,time_published,title,question,images;
     SQLITE3storage dbStorage;
-    TextView indiPTitle, indiPQuestion, infoFab, pseudoFab;
+    TextView indiPTitle, infoFab, pseudoFab;
+    WebView indiPQuestion;
     TextView topText;
+    ProgressDialog progress;
+
+    Elements webEle;
+    Document doc;
+    String data;
+
+    String webDataStart = "<HTML>\n" +
+            "<head>\n" +
+            "<meta charset=\"utf-8\" />\n" +
+            "<link rel=\"stylesheet\" type=\"text/css\" href=\"themes/default/style_default.css\" />\n" +
+            "\n" +
+            "<script type=\"text/x-mathjax-config\">\n" +
+            "   MathJax.Hub.Config({\n" +
+            "      jax: [\"input/TeX\", \"output/HTML-CSS\"],\n" +
+            "      tex2jax: {\n" +
+            "         inlineMath: [ [\"$\",\"$\"], [\"\\\\(\",\"\\\\)\"] ],\n" +
+            "         displayMath: [ [\"$$\",\"$$\"], [\"\\\\[\",\"\\\\]\"] ],\n" +
+            "         processEscapes: true\n" +
+            "      },\n" +
+            "      \"HTML-CSS\": { availableFonts: [\"TeX\"] }\n" +
+            "   });\n" +
+            "</script>\n" +
+            "<script type=\"text/javascript\" src=\"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full,Safe\">\n" +
+            "</script>\n" +
+            "\n" +
+            "</head>\n" +
+            "  <body>";
+
+    String webEndData = "  </body>\n" +
+            "  </HTML>";
 
 
     FloatingActionButton fab,fab1,fab2;
@@ -66,8 +112,15 @@ public class SingleProblem extends BaseActivity {
 
         }
 
+        progress=new ProgressDialog(this);
+        progress.setMessage("fetching data");
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setIndeterminate(true);
+        progress.setCancelable(false);
+        progress.show();
+
         indiPTitle = (TextView) findViewById(R.id.problemTitleIndi);
-        indiPQuestion = (TextView) findViewById(R.id.problemQuest);
+        indiPQuestion = (WebView) findViewById(R.id.problemQuest);
         topText = (TextView) findViewById(R.id.textTop);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab1 = (FloatingActionButton) findViewById(R.id.fab1);
@@ -97,28 +150,6 @@ public class SingleProblem extends BaseActivity {
 
         String top = "Problem: "+ problemID;
         topText.setText(top);
-//        final AlertDialog.Builder alertPseudo = new AlertDialog.Builder(this,R.style.alertDialog);
-//        alertPseudo.setTitle("your 2 cents on problem "+problemID);
-//        final EditText pseudoCode = new EditText(this);
-//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(10,10);
-//        lp.setMargins(10,2,10,2);
-//
-//        pseudoCode.setLayoutParams(lp);
-//        pseudoCode.setBackgroundColor(00000000);
-//        pseudoCode.setHint(" type");
-//        alertPseudo.setView(pseudoCode);
-//        alertPseudo.setCancelable(false);
-//
-//        alertPseudo.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                dialogInterface.dismiss();
-//                ((ViewGroup)pseudoCode.getParent()).removeView(pseudoCode);
-//                String twoCents = pseudoCode.getText().toString();
-//                dbStorage.setComment(problemID,twoCents);
-//                // put it to database
-//            }
-//        });
 
         final Dialog UserInputPseudo = new Dialog(SingleProblem.this, android.R.style.Theme_Black_NoTitleBar);
         UserInputPseudo.setCancelable(false);
@@ -146,14 +177,6 @@ public class SingleProblem extends BaseActivity {
 
 
         indiPTitle.setText(title);
-        Spanned spannedText;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            spannedText = Html.fromHtml(question,Html.FROM_HTML_MODE_LEGACY);
-        } else {
-            spannedText = Html.fromHtml(question);
-        }
-        indiPQuestion.setMovementMethod(new ScrollingMovementMethod());
-        indiPQuestion.setText(spannedText);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,6 +208,59 @@ public class SingleProblem extends BaseActivity {
                 alertDescription.show();
             }
         });
+
+        final Snackbar snackbar = Snackbar.make(getWindow().getDecorView().getRootView(), Constants.NetworkError, Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction("Retry", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+            }
+        });
+
+        progress.show();
+        final String urlProblem = "https://projecteuler.net/problem="+Integer.toString(problemID);
+        StringRequest requestQuestion = new StringRequest(
+                Request.Method.GET,
+                urlProblem,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progress.dismiss();
+                        doc = Jsoup.parse(response);
+                        webEle = doc.select("div.problem_content");
+                        if (webEle!= null && !webEle.isEmpty()) {
+                            data = webEle.toString();
+
+                        } else {
+                            // show exception
+                            System.out.println("aaa");
+                        }
+                        String mime = "text/html";
+                        String encoding = "utf-8";
+                        String completeData = webDataStart+"\n"+data+"\n"+webEndData;
+
+                        indiPQuestion.loadDataWithBaseURL(urlProblem, completeData, mime, encoding, null);
+                        indiPQuestion.getSettings().setLoadsImagesAutomatically(true);
+                        indiPQuestion.getSettings().setJavaScriptEnabled(true);
+                        indiPQuestion.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_INSET);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progress.dismiss();
+                if (error instanceof NoConnectionError || error instanceof TimeoutError) {
+
+                    snackbar.show();
+                }
+
+            }
+        }
+
+        );
+
+        Volley.newRequestQueue(getApplicationContext()).add(requestQuestion);
 
 
     }

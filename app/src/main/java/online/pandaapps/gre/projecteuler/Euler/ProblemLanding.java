@@ -1,20 +1,19 @@
 package online.pandaapps.gre.projecteuler.Euler;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import online.pandaapps.gre.projecteuler.MoreInfo.AboutApp;
 import online.pandaapps.gre.projecteuler.SwipeMenu.BaseActivity;
 import online.pandaapps.gre.projecteuler.Utils.Constants;
-import online.pandaapps.gre.projecteuler.MoreInfo.NEWs;
 import online.pandaapps.gre.projecteuler.R;
 import online.pandaapps.gre.projecteuler.Storage.SQLITE3storage;
 
 public class ProblemLanding extends BaseActivity implements View.OnClickListener {
 
-    Button number,recent,difficulty,solvedBy;
+    Button number,recent,difficulty, news;
     SQLITE3storage sqlite3storage;
 
     @Override
@@ -27,12 +26,14 @@ public class ProblemLanding extends BaseActivity implements View.OnClickListener
         number = (Button) findViewById(R.id.number);
         recent = (Button) findViewById(R.id.recent);
         difficulty = (Button) findViewById(R.id.difficulty);
-        solvedBy = (Button) findViewById(R.id.solvedby);
+        news = (Button) findViewById(R.id.news);
 
         number.setOnClickListener(this);
         recent.setOnClickListener(this);
         difficulty.setOnClickListener(this);
-        solvedBy.setOnClickListener(this);
+        news.setOnClickListener(this);
+
+        news.setText("mathjax");
 
 
     }
@@ -56,9 +57,12 @@ public class ProblemLanding extends BaseActivity implements View.OnClickListener
                 difficultyAct.putExtra(Constants.nAndDFlag,"2");
                 startActivity(difficultyAct);
                 break;
-            case R.id.solvedby:
-                Intent news = new Intent(getApplicationContext(),NEWs.class);
-                news.putExtra(Constants.newsORaboutFlag,Constants.news);
+            case R.id.news:
+//                Intent news = new Intent(getApplicationContext(),NEWs.class);
+//                news.putExtra(Constants.newsORaboutFlag,Constants.news);
+//                startActivity(news);
+
+                Intent news = new Intent(getApplicationContext(),AboutApp.class);
                 startActivity(news);
                 break;
         }
