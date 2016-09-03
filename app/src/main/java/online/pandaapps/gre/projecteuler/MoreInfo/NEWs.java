@@ -65,7 +65,15 @@ public class NEWs extends BaseActivity {
 
         webview = (WebView) findViewById(R.id.webview);
 
-
+        final Snackbar snackbar = Snackbar.make(getWindow().getDecorView().getRootView(), Constants.NetworkError, Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction("Retry", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+            }
+        });
 
         StringRequest documentReq = new StringRequest(Request.Method.GET, link,
                 new Response.Listener<String>() {
@@ -92,7 +100,7 @@ public class NEWs extends BaseActivity {
             public void onErrorResponse(VolleyError error) {
                 progress.dismiss();
                 if (error instanceof NoConnectionError || error instanceof TimeoutError) {
-                    Snackbar.make(getWindow().getDecorView().getRootView(), Constants.NetworkError, Snackbar.LENGTH_INDEFINITE).show();
+                    snackbar.show();
                 }
             }
         }

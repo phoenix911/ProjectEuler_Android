@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -60,6 +61,15 @@ public class MainActivity extends AppCompatActivity {
         final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
         status.setText(R.string.connecting_server);
+        final Snackbar snackbar = Snackbar.make(getWindow().getDecorView().getRootView(), Constants.NetworkError, Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction("Retry", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+            }
+        });
         getDateReq = new StringRequest(Request.Method.GET, Constants.urlDate, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -86,10 +96,12 @@ public class MainActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 status.setText(R.string.blank);
                 if (error instanceof NoConnectionError || error instanceof TimeoutError) {
-                    Snackbar.make(getWindow().getDecorView().getRootView(), Constants.NetworkError, Snackbar.LENGTH_INDEFINITE).show();
+                    snackbar.show();
                 }
             }
         });
+
+
 
         status.setText(R.string.ready);
         getEulerDB = new StringRequest(Request.Method.GET, Constants.urlDB, new Response.Listener<String>() {
@@ -125,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 status.setText(R.string.blank);
                 if (error instanceof NoConnectionError || error instanceof TimeoutError) {
-                    Snackbar.make(getWindow().getDecorView().getRootView(), Constants.NetworkError, Snackbar.LENGTH_INDEFINITE).show();
+                    snackbar.show();
                 }
             }
         });

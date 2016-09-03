@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import online.pandaapps.gre.projecteuler.MoreInfo.AboutApp;
+import online.pandaapps.gre.projecteuler.MoreInfo.NEWs;
 import online.pandaapps.gre.projecteuler.SwipeMenu.BaseActivity;
 import online.pandaapps.gre.projecteuler.Utils.Constants;
 import online.pandaapps.gre.projecteuler.R;
@@ -33,7 +34,6 @@ public class ProblemLanding extends BaseActivity implements View.OnClickListener
         difficulty.setOnClickListener(this);
         news.setOnClickListener(this);
 
-        news.setText("mathjax");
 
 
     }
@@ -58,12 +58,10 @@ public class ProblemLanding extends BaseActivity implements View.OnClickListener
                 startActivity(difficultyAct);
                 break;
             case R.id.news:
-//                Intent news = new Intent(getApplicationContext(),NEWs.class);
-//                news.putExtra(Constants.newsORaboutFlag,Constants.news);
-//                startActivity(news);
-
-                Intent news = new Intent(getApplicationContext(),AboutApp.class);
+                Intent news = new Intent(getApplicationContext(),NEWs.class);
+                news.putExtra(Constants.newsORaboutFlag,Constants.news);
                 startActivity(news);
+
                 break;
         }
 
