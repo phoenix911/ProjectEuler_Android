@@ -155,11 +155,12 @@ public class SingleProblem extends BaseActivity {
         UserInputPseudo.setContentView(R.layout.dialog_show_tut);
         UserInputPseudo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         final EditText pseudoCode = (EditText) UserInputPseudo.findViewById(R.id.tvpseudoCode);
+        pseudoCode.setMovementMethod(new ScrollingMovementMethod());
         Button OK = (Button) UserInputPseudo.findViewById(R.id.btOK);
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(UserInputPseudo.getWindow().getAttributes());
-        lp.width = 500;
-        lp.height = 500;
+        lp.width = 800;
+        lp.height = 800;
         OK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
