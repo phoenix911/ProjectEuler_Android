@@ -155,7 +155,8 @@ public class BaseActivity extends AppCompatActivity
                 startActivity(col6);
                 return true;
             case R.id.col7:
-                Intent col7 = new Intent(this, AboutApp.class);
+                Intent col7 = new Intent(this, NEWs.class);
+                col7.putExtra(Constants.newsORaboutFlag,Constants.aboutApp);
                 col7.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(col7);
                 return true;

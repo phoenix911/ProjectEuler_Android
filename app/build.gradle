@@ -27,13 +27,10 @@ dependencies {
     compile 'com.android.support:design:24.2.0'
     // volley dependencies
     compile 'com.android.volley:volley:1.0.0'
-    compile 'com.google.android.gms:play-services-appindexing:9.4.0'
+    // gms
     // card view and recycler view Dependencies
     compile "com.android.support:recyclerview-v7:24.2.0"
     compile 'com.android.support:cardview-v7:24.2.0'
     // jsoup dependency
     compile 'org.jsoup:jsoup:1.9.2'
-    //Math Jax
-    compile 'io.github.kexanie.library:MathView:0.0.6'
-
 }

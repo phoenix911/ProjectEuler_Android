@@ -43,5 +43,5 @@ public class Constants {
     public static final String newsORaboutFlag = "nORa";
     public static final int news = 1;
     public static final int about = 2;
-
+    public static int aboutApp = 3;
 }

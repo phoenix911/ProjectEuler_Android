@@ -53,6 +53,9 @@ public class NEWs extends BaseActivity {
         }else if (nORaKey == Constants.about){
             topText.setText("About Project Euler");
             link = "https://projecteuler.net/about";
+        }else if (nORaKey == Constants.aboutApp){
+            topText.setText("About this app");
+            link = "http://pandaapps.online/euler/";
         }
 
         progress=new ProgressDialog(this);
