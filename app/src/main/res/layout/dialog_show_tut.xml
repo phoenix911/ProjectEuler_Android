@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@color/whitedirty"
     android:minWidth="300dp"
     android:minHeight="400dp"
     android:layout_height="match_parent">
@@ -33,6 +32,7 @@
         android:layout_below="@+id/view1"
         android:layout_above="@+id/btOK"
         android:layout_margin="15sp"
+        android:gravity="top"
         android:textSize="20sp"
         android:background="@android:color/transparent"
         android:layout_width="match_parent"

@@ -149,7 +149,7 @@ public class SingleProblem extends BaseActivity {
         String top = "Problem: "+ problemID;
         topText.setText(top);
 
-        final Dialog UserInputPseudo = new Dialog(SingleProblem.this, android.R.style.Theme_Black_NoTitleBar);
+        final Dialog UserInputPseudo = new Dialog(SingleProblem.this, R.style.alertDialog);
         UserInputPseudo.setCancelable(false);
         UserInputPseudo.requestWindowFeature(Window.FEATURE_NO_TITLE);
         UserInputPseudo.setContentView(R.layout.dialog_show_tut);
@@ -197,6 +197,7 @@ public class SingleProblem extends BaseActivity {
                 }
 
                 UserInputPseudo.show();
+
             }
         });
 
