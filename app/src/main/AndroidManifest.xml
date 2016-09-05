@@ -24,7 +24,8 @@
         <activity android:name=".MoreInfo.NEWs" />
         <activity android:name=".Euler.SingleProblem" />
         <activity android:name=".SwipeMenu.BaseActivity" />
-        <activity android:name=".MoreInfo.AboutApp"></activity>
+        <activity android:name=".MoreInfo.AboutApp" />
+        <activity android:name=".Euler.SingleProblemOffline"></activity>
     </application>
 
 </manifest>
