@@ -46,4 +46,5 @@ public class Constants {
     public static int aboutApp = 3;
 
     // started working on version 1.1
+    //currently adding offline access
 }
