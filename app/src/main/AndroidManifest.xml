@@ -11,21 +11,36 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Euler.ProblemLanding" />
-        <activity android:name=".Euler.Number" />
-        <activity android:name=".Euler.Recent" />
-        <activity android:name=".MoreInfo.NEWs" />
-        <activity android:name=".Euler.SingleProblem" />
-        <activity android:name=".SwipeMenu.BaseActivity" />
-        <activity android:name=".MoreInfo.AboutApp" />
-        <activity android:name=".Euler.SingleProblemOffline"></activity>
+        <activity android:name=".Euler.ProblemLanding"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".Euler.Number"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".Euler.Recent"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".MoreInfo.NEWs"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".Euler.SingleProblem"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".SwipeMenu.BaseActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".MoreInfo.AboutApp"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Project Euler</string>
+    <string name="app_name">Project Euler [Unofficial]</string>
     <string name="connecting_server">connecting with server</string>
     <string name="blank" />
     <string name="ready">getting you ready</string>
