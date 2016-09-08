@@ -1,5 +1,6 @@
 package online.pandaapps.gre.projecteuler.Euler;
 
+import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -8,6 +9,7 @@ import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -264,6 +266,7 @@ public class SingleProblemOffline extends BaseActivity {
     }
 
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void animateFAB(){
 
         if(isFabOpen){
@@ -283,7 +286,8 @@ public class SingleProblemOffline extends BaseActivity {
 
             fab.startAnimation(rotate_forward);
             fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
-            fab.setImageResource(R.drawable.pandared);
+            fab.setImageResource(R.drawable.panda);
+            fab.getDrawable().mutate().setTint(getResources().getColor(R.color.fab_color));
             fab1.startAnimation(fab_open);
             fab2.startAnimation(fab_open);
             infoFab.setVisibility(View.VISIBLE);
