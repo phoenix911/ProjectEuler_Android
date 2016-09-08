@@ -97,7 +97,7 @@
                 android:layout_marginRight="25sp"
                 android:visibility="invisible"
                 auto:backgroundTint="@color/colorFAB2"
-                android:src="@drawable/info"
+                android:src="@drawable/ic_info"
                 app:pressedTranslationZ="12dp"
                 />
             <online.pandaapps.gre.projecteuler.Utils.Fonts.CustomFontTV

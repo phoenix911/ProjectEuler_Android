@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     TextView status;
     Date spDate_date, serverDate_date;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
