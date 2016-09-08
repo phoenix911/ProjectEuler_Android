@@ -29,7 +29,7 @@ import java.util.Date;
 import java.util.Locale;
 import android.os.Handler;
 
-import online.pandaapps.gre.projecteuler.Euler.ProblemLanding;
+import online.pandaapps.gre.projecteuler.Euler.SingleProblemOffline;
 import online.pandaapps.gre.projecteuler.Storage.SQLITE3storage;
 import online.pandaapps.gre.projecteuler.Storage.SharedPrefStorage;
 import online.pandaapps.gre.projecteuler.Utils.Constants;
@@ -55,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
 
         loadingAnimation = (ImageView) findViewById(R.id.loaderImage);
         status = (TextView) findViewById(R.id.DownloadStatus);
-        Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
-        loadingAnimation.startAnimation(pulse);
-        pulse.setRepeatCount(Animation.INFINITE);
+        Animation homeLogoAnim = AnimationUtils.loadAnimation(this, R.anim.home_screen);
+        loadingAnimation.startAnimation(homeLogoAnim);
+        homeLogoAnim.setRepeatCount(Animation.INFINITE);
         final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
         status.setText(R.string.connecting_server);
@@ -122,7 +122,9 @@ public class MainActivity extends AppCompatActivity {
                         dbStorage.insertData(slNo, datePublished, timePublished, title, difficulty, solvedBy);
 
                     }
-                    startActivity(new Intent(getApplicationContext(),ProblemLanding.class));
+                    Intent start = new Intent(getApplicationContext(),SingleProblemOffline.class);
+//                    Intent start = new Intent(getApplicationContext(),ProblemLanding.class);
+                    startActivity(start);
                     overridePendingTransition(R.anim.bottomup,R.anim.bottomup);
                     finish();
 
@@ -170,7 +172,9 @@ public class MainActivity extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        startActivity(new Intent(getApplicationContext(),ProblemLanding.class));
+                        Intent landing = new Intent(getApplicationContext(),SingleProblemOffline.class);
+//                        Intent landing = new Intent(getApplicationContext(),ProblemLanding.class);
+                        startActivity(landing);
                         overridePendingTransition(R.anim.bottomup,R.anim.bottomup);
                         finish();
                     }
