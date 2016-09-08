@@ -2,37 +2,37 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/col1"
-        android:icon="@drawable/icon_home"
+        android:icon="@drawable/ic_home_teal_800_18dp"
         android:title="@string/col1"/>
     <item
         android:id="@+id/col2"
-        android:icon="@drawable/icon_number"
+        android:icon="@drawable/ic_format_list_numbered_purple_900_18dp"
         android:title="@string/col2"/>
     <item
         android:id="@+id/col3"
-        android:icon="@drawable/icon_letter"
+        android:icon="@drawable/ic_view_list_indigo_400_18dp"
         android:title="@string/col3"/>
     <item
         android:id="@+id/col4"
-        android:icon="@drawable/icon_difficulty"
+        android:icon="@drawable/ic_trending_up_light_blue_800_18dp"
         android:title="@string/col4"/>
 
     <item
         android:id="@+id/col5"
-        android:icon="@drawable/icon_news"
+        android:icon="@drawable/ic_assignment_pink_700_18dp"
         android:title="@string/col5"/>
 
     <item
         android:id="@+id/col6"
-        android:icon="@drawable/icon_math"
+        android:icon="@drawable/ic_about_18dp"
         android:title="@string/col6"/>
     <item
         android:id="@+id/col7"
-        android:icon="@drawable/icon_about"
+        android:icon="@drawable/ic_info"
         android:title="@string/col7"/>
 
     <item
         android:id="@+id/col8"
-        android:icon="@drawable/icon_update"
+        android:icon="@drawable/ic_update"
         android:title="@string/col8"/>
 </menu>
