@@ -38,7 +38,6 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/problemQuestoion"
-        android:layout_below="@+id/problemTitleAndID"
         android:layout_width="match_parent"
         card_view:cardCornerRadius="100sp"
         android:thicknessRatio="1.5"

@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import online.pandaapps.gre.projecteuler.Storage.DBCreator;
 import online.pandaapps.gre.projecteuler.SwipeMenu.BaseActivity;
 import online.pandaapps.gre.projecteuler.Utils.Constants;
 import online.pandaapps.gre.projecteuler.R;
@@ -16,7 +17,8 @@ import online.pandaapps.gre.projecteuler.Utils.ViewHolder.RecyclerAdapter;
 
 public class Recent extends BaseActivity {
 
-    SQLITE3storage dbStorage;
+//    SQLITE3storage dbStorage;
+    DBCreator dbCreator;
     Cursor problems;
     String[] problemID,problemTitle;
     TextView topText;
@@ -35,8 +37,8 @@ public class Recent extends BaseActivity {
         recyclerView = (RecyclerView) findViewById(R.id.problemsList);
 //        adapter = new RecyclerAdapter()
 
-        dbStorage = new SQLITE3storage(this);
-
+//        dbStorage = new SQLITE3storage(this);
+        dbCreator = new DBCreator(this);
         Intent getFlag = getIntent();
         int Flag = Integer.parseInt(getFlag.getStringExtra(Constants.RecentFlagTitle));
 
@@ -44,7 +46,7 @@ public class Recent extends BaseActivity {
             case 1:
                 // from recent button
                 topText.setText("New Problems");
-                problems = dbStorage.getAllByDifficulty(0);
+                problems = dbCreator.getByDifficulty(0);
                 break;
             case 2:
                 int start = Integer.parseInt(getFlag.getStringExtra("first_problem").trim());
@@ -52,13 +54,15 @@ public class Recent extends BaseActivity {
                 String top = "From Problem "+start+" to "+end;
                 topText.setTextSize(22);
                 topText.setText(top);
-                problems = dbStorage.getInRange(start,end);
+//                problems = dbStorage.getInRange(start,end);
+                problems = dbCreator.getInRange(start,end);
                 break;
             case 3:
                 int difficulty = Integer.parseInt(getFlag.getStringExtra("first_problem").trim());
                 top = "Difficulty: "+ difficulty;
                 topText.setText(top);
-                problems = dbStorage.getAllByDifficulty(difficulty);
+//                problems = dbStorage.getAllByDifficulty(difficulty);
+                problems = dbCreator.getByDifficulty(difficulty);
                 break;
         }
 

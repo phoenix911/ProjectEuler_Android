@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import online.pandaapps.gre.projecteuler.Storage.DBCreator;
 import online.pandaapps.gre.projecteuler.SwipeMenu.BaseActivity;
 import online.pandaapps.gre.projecteuler.Utils.Constants;
 import online.pandaapps.gre.projecteuler.R;
@@ -16,7 +17,8 @@ import online.pandaapps.gre.projecteuler.Utils.gridLayoutRecyclerViewSpacing.Gri
 
 public class Number extends BaseActivity {
 
-    SQLITE3storage dbStorage;
+//    SQLITE3storage dbStorage;
+    DBCreator dbCreator;
     String[] problemList;
 
     TextView topText;
@@ -30,8 +32,8 @@ public class Number extends BaseActivity {
         setContentView(R.layout.activity_number);
 
         topText = (TextView) findViewById(R.id.textTop);
-        dbStorage = new SQLITE3storage(this);
-
+//        dbStorage = new SQLITE3storage(this);
+        dbCreator = new DBCreator(this);
 
         Intent nAndD = getIntent();
         int flagnAndD = Integer.parseInt(nAndD.getStringExtra(Constants.nAndDFlag));
@@ -39,7 +41,8 @@ public class Number extends BaseActivity {
         switch (flagnAndD){
             case 1:
                 topText.setText("Based On Number");
-                int totalProblem = dbStorage.getCount();
+                int totalProblem = dbCreator.getCount();
+                System.out.println(totalProblem);
                 int pGroup = totalProblem/25;
                 int displayGroup = pGroup+1;
                 problemList = new String [displayGroup];

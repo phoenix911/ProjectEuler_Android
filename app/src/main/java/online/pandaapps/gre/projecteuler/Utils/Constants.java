@@ -46,5 +46,8 @@ public class Constants {
     public static int aboutApp = 3;
 
     // started on offline access
+    public static final String DB_PATH = "/data/data/online.pandaapps.gre.projecteuler/databases/";
 
+    public static final String tableDifficulty = "PROBLEM_SOLVED_BY";
+    public static final String tableDetails = "PROBLEM_LIST";
 }

@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import online.pandaapps.gre.projecteuler.MoreInfo.AboutApp;
 import online.pandaapps.gre.projecteuler.MoreInfo.NEWs;
+import online.pandaapps.gre.projecteuler.Storage.DBCreator;
 import online.pandaapps.gre.projecteuler.SwipeMenu.BaseActivity;
 import online.pandaapps.gre.projecteuler.Utils.Constants;
 import online.pandaapps.gre.projecteuler.R;
@@ -15,14 +16,12 @@ import online.pandaapps.gre.projecteuler.Storage.SQLITE3storage;
 public class ProblemLanding extends BaseActivity implements View.OnClickListener {
 
     Button number,recent,difficulty, news;
-    SQLITE3storage sqlite3storage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_problem_landing);
 
-        sqlite3storage = new SQLITE3storage(this);
 
         number = (Button) findViewById(R.id.number);
         recent = (Button) findViewById(R.id.recent);

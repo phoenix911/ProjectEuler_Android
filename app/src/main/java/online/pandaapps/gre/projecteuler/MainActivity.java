@@ -23,13 +23,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import android.os.Handler;
 
+import online.pandaapps.gre.projecteuler.Euler.ProblemLanding;
 import online.pandaapps.gre.projecteuler.Euler.SingleProblemOffline;
+import online.pandaapps.gre.projecteuler.Storage.DBCreator;
 import online.pandaapps.gre.projecteuler.Storage.SQLITE3storage;
 import online.pandaapps.gre.projecteuler.Storage.SharedPrefStorage;
 import online.pandaapps.gre.projecteuler.Utils.Constants;
@@ -39,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
     SharedPrefStorage spStorage;
     String serverDate, spDate;
     StringRequest getDateReq, getEulerDB;
-    SQLITE3storage dbStorage;
+//    SQLITE3storage dbStorage;
+    DBCreator dbCreator;
     ImageView loadingAnimation;
     TextView status;
     Date spDate_date, serverDate_date;
@@ -50,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         spStorage = new SharedPrefStorage(this);
-        dbStorage = new SQLITE3storage(this);
+//        dbStorage = new SQLITE3storage(this);
+        dbCreator = new DBCreator(this);
 
         loadingAnimation = (ImageView) findViewById(R.id.loaderImage);
         status = (TextView) findViewById(R.id.DownloadStatus);
@@ -118,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                         int solvedBy = indiQuestion.getInt("solved_by");
                         String datePublished = indiQuestion.getString("date");
                         String timePublished = indiQuestion.getString("time");
-                        dbStorage.insertData(slNo, datePublished, timePublished, title, difficulty, solvedBy);
+//                        dbStorage.insertData(slNo, datePublished, timePublished, title, difficulty, solvedBy);
 
                     }
                     Intent start = new Intent(getApplicationContext(),SingleProblemOffline.class);
@@ -149,10 +157,30 @@ public class MainActivity extends AppCompatActivity {
         if (firstRun == 0) {
             System.out.println("first run");
             spStorage.setMainActivityFirstRun(1);
-            Volley.newRequestQueue(getApplicationContext()).add(getEulerDB);
-            dbStorage.setComment(0,"abc");
+            // saving the database
+            dbCreator.insertDetails(0,"a","b","c","d");
+            dbCreator.insertDifficulty(0,0,0);
+            try {
+                InputStream INPUT = getApplicationContext().getAssets().open("PROBLEMS_DATA.DB");
+                String outFileName = String.valueOf(getDatabasePath(Constants.dbName));
+                OutputStream OUTPUT = new FileOutputStream(outFileName);
+                byte[] BUFFER = new byte[1024];
+                int LEN;
+                while ((LEN = INPUT.read(BUFFER))>0)
+                {
+                    OUTPUT.write(BUFFER, 0, LEN);
+                    status.setText(R.string.ready);
+//                    System.out.println(LEN);
+                }
+                OUTPUT.flush();
+                OUTPUT.close();
+                INPUT.close();
+                Intent startLanding = new Intent(getApplicationContext(), ProblemLanding.class);
+                startActivity(startLanding);
 
-            // download db and save to storage
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             // first run
         } else {
             // nth run
@@ -161,8 +189,9 @@ public class MainActivity extends AppCompatActivity {
             int dbDownload = spStorage.getUpdateDBFlag();
 
             if (dbDownload == 1) {
-                this.deleteDatabase(Constants.dbName);
-                Volley.newRequestQueue(getApplicationContext()).add(getEulerDB);
+//                this.deleteDatabase(Constants.dbName);
+//                Volley.newRequestQueue(getApplicationContext()).add(getEulerDB);
+
                 spStorage.setUpdateDBFlag(100);
             }else {
                 // delay of 4 sec
@@ -171,8 +200,8 @@ public class MainActivity extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent landing = new Intent(getApplicationContext(),SingleProblemOffline.class);
-//                        Intent landing = new Intent(getApplicationContext(),ProblemLanding.class);
+//                        Intent landing = new Intent(getApplicationContext(),SingleProblemOffline.class);
+                        Intent landing = new Intent(getApplicationContext(),ProblemLanding.class);
                         startActivity(landing);
                         overridePendingTransition(R.anim.bottomup,R.anim.bottomup);
                         finish();
@@ -181,7 +210,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-
 
     }
 

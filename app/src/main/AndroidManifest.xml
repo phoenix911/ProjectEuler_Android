@@ -41,7 +41,7 @@
         <activity
             android:name=".MoreInfo.AboutApp"
             android:screenOrientation="portrait" />
-        <activity android:name=".Euler.SingleProblemOffline"></activity>
+        <activity android:name=".Euler.SingleProblemOffline" />
     </application>
 
 </manifest>

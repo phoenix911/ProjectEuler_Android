@@ -43,6 +43,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import online.pandaapps.gre.projecteuler.Storage.DBCreator;
 import online.pandaapps.gre.projecteuler.SwipeMenu.BaseActivity;
 import online.pandaapps.gre.projecteuler.Utils.Constants;
 import online.pandaapps.gre.projecteuler.R;
@@ -53,11 +54,13 @@ public class SingleProblem extends BaseActivity {
     int problemID;
     int problem_id,difficulty,solved_by;
     String date_published,time_published,title,question,images;
-    SQLITE3storage dbStorage;
+//    SQLITE3storage dbStorage;
     TextView indiPTitle, infoFab, pseudoFab;
     WebView indiPQuestion;
     TextView topText;
     ProgressDialog progress;
+
+    DBCreator dbCreator;
 
     Elements webEle;
     Document doc;
@@ -97,27 +100,31 @@ public class SingleProblem extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_problem);
 
-        dbStorage = new SQLITE3storage(this);
+//        dbStorage = new SQLITE3storage(this);
+        dbCreator = new DBCreator(this);
 
         Intent getProblemID = getIntent();
         problemID= Integer.parseInt(getProblemID.getStringExtra(Constants.col1ID));
-        final Cursor problem = dbStorage.getIndividualProblem(problemID);
+        Cursor problem = dbCreator.getIndividualProblem(problemID);
         while (problem.moveToNext()){
             problem_id = problem.getInt(0);
-            date_published = problem.getString(1);
-            time_published = problem.getString(2);
-            difficulty = problem.getInt(3);
+            difficulty = Integer.parseInt(problem.getString(1));
+            solved_by = Integer.parseInt(problem.getString(2));
             title = problem.getString(4);
-            solved_by = problem.getInt(5);
+            date_published = problem.getString(5);
+            time_published = problem.getString(6);
+            question = problem.getString(7);
+//            solved_by = problem.getInt(5);
 
         }
+
 
         progress=new ProgressDialog(this);
         progress.setMessage("fetching data");
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progress.setIndeterminate(true);
         progress.setCancelable(false);
-        progress.show();
+//        progress.show();
 
         indiPTitle = (TextView) findViewById(R.id.problemTitleIndi);
         indiPQuestion = (WebView) findViewById(R.id.problemQuest);
@@ -163,13 +170,14 @@ public class SingleProblem extends BaseActivity {
         lp.copyFrom(UserInputPseudo.getWindow().getAttributes());
         lp.width = 800;
         lp.height = 800;
+
         OK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 UserInputPseudo.dismiss();
                 ((ViewGroup)pseudoCode.getParent()).removeView(pseudoCode);
                 String twoCents = pseudoCode.getText().toString();
-                dbStorage.setComment(problemID,twoCents);
+//                dbStorage.setComment(problemID,twoCents);
 
             }
         });
@@ -190,13 +198,13 @@ public class SingleProblem extends BaseActivity {
             @Override
             public void onClick(View view) {
                 animateFAB();
-                Cursor comment = dbStorage.getComment(problemID);
-                if (comment.getCount()!=0){
-                    while (comment.moveToNext()){
-                        String commentFromDB = comment.getString(1);
-                        pseudoCode.setText(commentFromDB);
-                    }
-                }
+//                Cursor comment = dbStorage.getComment(problemID);
+//                if (comment.getCount()!=0){
+//                    while (comment.moveToNext()){
+//                        String commentFromDB = comment.getString(1);
+//                        pseudoCode.setText(commentFromDB);
+//                    }
+//                }
 
                 UserInputPseudo.show();
 
@@ -220,49 +228,15 @@ public class SingleProblem extends BaseActivity {
                 startActivity(intent);
             }
         });
+        String mime = "text/html";
+        String encoding = "utf-8";
+        String completeData = webDataStart+"\n"+question+"\n"+webEndData;
 
-        progress.show();
         final String urlProblem = "https://projecteuler.net/problem="+Integer.toString(problemID);
-        StringRequest requestQuestion = new StringRequest(
-                Request.Method.GET,
-                urlProblem,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        progress.dismiss();
-                        doc = Jsoup.parse(response);
-                        webEle = doc.select("div.problem_content");
-                        if (webEle!= null && !webEle.isEmpty()) {
-                            data = webEle.toString();
-
-                        } else {
-                            // show exception
-                            System.out.println("aaa");
-                        }
-                        String mime = "text/html";
-                        String encoding = "utf-8";
-                        String completeData = webDataStart+"\n"+data+"\n"+webEndData;
-
-                        indiPQuestion.loadDataWithBaseURL(urlProblem, completeData, mime, encoding, null);
-                        indiPQuestion.getSettings().setLoadsImagesAutomatically(true);
-                        indiPQuestion.getSettings().setJavaScriptEnabled(true);
-                        indiPQuestion.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_INSET);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progress.dismiss();
-                if (error instanceof NoConnectionError || error instanceof TimeoutError) {
-
-                    snackbar.show();
-                }
-
-            }
-        }
-
-        );
-
-        Volley.newRequestQueue(getApplicationContext()).add(requestQuestion);
+        indiPQuestion.loadDataWithBaseURL(urlProblem, completeData, mime, encoding, null);
+        indiPQuestion.getSettings().setLoadsImagesAutomatically(true);
+        indiPQuestion.getSettings().setJavaScriptEnabled(true);
+        indiPQuestion.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_INSET);
 
 
     }
