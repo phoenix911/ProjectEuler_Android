@@ -35,6 +35,8 @@
     <string name="col6">About Project Euler</string>
     <string name="col7">About App</string>
     <string name="col8">last update:</string>
+    <string name="footer_top">Project Euler v0.0.1</string>
+    <string name="footer_bottom">Created @ panda apps</string>
 
     <!--end of nav drawer-->
 

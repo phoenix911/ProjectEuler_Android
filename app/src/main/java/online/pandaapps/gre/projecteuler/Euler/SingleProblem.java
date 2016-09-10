@@ -13,10 +13,7 @@ import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.Spanned;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,19 +24,8 @@ import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.volley.NoConnectionError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
@@ -47,7 +33,6 @@ import online.pandaapps.gre.projecteuler.Storage.DBCreator;
 import online.pandaapps.gre.projecteuler.SwipeMenu.BaseActivity;
 import online.pandaapps.gre.projecteuler.Utils.Constants;
 import online.pandaapps.gre.projecteuler.R;
-import online.pandaapps.gre.projecteuler.Storage.SQLITE3storage;
 
 public class SingleProblem extends BaseActivity {
 
@@ -138,8 +123,8 @@ public class SingleProblem extends BaseActivity {
         fab_close = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_close);
         rotate_forward = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_forward);
         rotate_backward = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_backward);
-        textUp = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.bottomup);
-        textDown = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.bottomdown);
+        textUp = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.activity_out);
+        textDown = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.activity_in);
 
         final AlertDialog.Builder alertDescription = new AlertDialog.Builder(this,R.style.alertDialog);
         alertDescription.setTitle("Description for "+problemID);

@@ -33,7 +33,7 @@ public class NEWs extends BaseActivity {
     String link;
     Document document;
     ProgressDialog progress;
-    int nORaKey;
+    public static int nORaKey;
     TextView topText;
 
 

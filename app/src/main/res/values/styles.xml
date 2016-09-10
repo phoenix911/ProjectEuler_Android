@@ -6,6 +6,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowAnimationStyle">@style/ActivityChangeAnimation</item>
+    </style>
+
+    <style name="ActivityChangeAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@android:anim/slide_in_left</item>
+        <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
     </style>
 
     <style name="btLanding" parent="@android:style/Widget.DeviceDefault.Button">
@@ -26,6 +32,14 @@
         <item name="android:layout_marginTop">10sp</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:textColor">@color/secondary_text</item>
+    </style>
+
+    <style name="tvNavFooter" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:layout_alignParentBottom">true</item>
     </style>
 
     <style name="tvQuestionList" parent="@android:style/TextAppearance.Widget.TextView">
@@ -52,5 +66,7 @@
     <style name="drawer_theme">
         <item name="android:textSize">16dp</item>
     </style>
+
+
 
 </resources>

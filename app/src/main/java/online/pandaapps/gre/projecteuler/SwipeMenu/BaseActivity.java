@@ -113,52 +113,78 @@ public class BaseActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-
-
+        String compareNcollapse = this.getClass().getSimpleName();
         //noinspection SimplifiableIfStatement
         switch (id)
         {
             case R.id.col1:
                 Intent col1 = new Intent(this, ProblemLanding.class);
-                col1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(col1);
+                if (compareNcollapse.equals("ProblemLanding")){
+                    navigationView.setVisibility(View.GONE);
+                }else {
+                    col1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(col1);
+                }
                 return true;
             case R.id.col2:
                 Intent col2 = new Intent(this, Recent.class);
-                col2.putExtra(Constants.RecentFlagTitle,Constants.RecentFlagTitleValueRecentButton);
-                col2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(col2);
+                if (compareNcollapse.equals("Recent")){
+                    navigationView.setVisibility(View.GONE);
+                }else {
+                    col2.putExtra(Constants.RecentFlagTitle,Constants.RecentFlagTitleValueRecentButton);
+                    col2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(col2);
+                }
                 return true;
             case R.id.col3:
                 Intent col3 = new Intent(this, Number.class);
-                col3.putExtra(Constants.nAndDFlag,"1");
-                col3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(col3);
+                if (compareNcollapse.equals("Number") && Number.flagnAndD == 1){
+                    navigationView.setVisibility(View.GONE);
+                }else {
+                    col3.putExtra(Constants.nAndDFlag,"1");
+                    col3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(col3);
+                }
                 return true;
             case R.id.col4:
                 Intent col4 = new Intent(this, Number.class);
-                col4.putExtra(Constants.nAndDFlag,"2");
-                col4.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(col4);
+                if (compareNcollapse.equals("Number")&& Number.flagnAndD == 2){
+                    navigationView.setVisibility(View.GONE);
+                }else {
+                    col4.putExtra(Constants.nAndDFlag,"2");
+                    col4.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(col4);
+                }
                 return true;
             case R.id.col5:
                 Intent col5 = new Intent(this, NEWs.class);
-                col5.putExtra(Constants.newsORaboutFlag,Constants.news);
-                col5.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(col5);
+                if (compareNcollapse.equals("NEWs") && NEWs.nORaKey == Constants.news){
+                    navigationView.setVisibility(View.GONE);
+                }else {
+                    col5.putExtra(Constants.newsORaboutFlag,Constants.news);
+                    col5.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(col5);
+                }
                 return true;
             case R.id.col6:
                 Intent col6 = new Intent(this, NEWs.class);
-                col6.putExtra(Constants.newsORaboutFlag,Constants.about);
-                col6.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(col6);
+                if (compareNcollapse.equals("NEWs")&& NEWs.nORaKey == Constants.about){
+                    navigationView.setVisibility(View.GONE);
+                }else {
+                    col6.putExtra(Constants.newsORaboutFlag,Constants.about);
+                    col6.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(col6);
+                }
                 return true;
             case R.id.col7:
                 Intent col7 = new Intent(this, NEWs.class);
-                col7.putExtra(Constants.newsORaboutFlag,Constants.aboutApp);
-                col7.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(col7);
+                if (compareNcollapse.equals("NEWs")&& NEWs.nORaKey == Constants.aboutApp){
+                    navigationView.setVisibility(View.GONE);
+                }else {
+                    col7.putExtra(Constants.newsORaboutFlag,Constants.aboutApp);
+                    col7.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(col7);
+                }
                 return true;
             case R.id.col8:
                 return true;

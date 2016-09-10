@@ -8,6 +8,7 @@
     <color name="secondary_text">#494848</color>
     <color name="white">#ffffff</color>
     <color name="whitedirty">#f1efef</color>
+    <color name="cardTop">#70b5ec</color>
     <color name="fab_color">#d50000</color>
     <color name="colorFAB1">#2196F3</color>
     <color name="colorFAB3">#2160f3</color>

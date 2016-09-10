@@ -33,8 +33,6 @@ public class ProblemLanding extends BaseActivity implements View.OnClickListener
         difficulty.setOnClickListener(this);
         news.setOnClickListener(this);
 
-
-
     }
 
     @Override

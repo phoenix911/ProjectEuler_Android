@@ -34,7 +34,6 @@ import java.util.Locale;
 import android.os.Handler;
 
 import online.pandaapps.gre.projecteuler.Euler.ProblemLanding;
-import online.pandaapps.gre.projecteuler.Euler.SingleProblemOffline;
 import online.pandaapps.gre.projecteuler.Storage.DBCreator;
 import online.pandaapps.gre.projecteuler.Storage.SQLITE3storage;
 import online.pandaapps.gre.projecteuler.Storage.SharedPrefStorage;
@@ -110,47 +109,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        status.setText(R.string.ready);
-        getEulerDB = new StringRequest(Request.Method.GET, Constants.urlDB, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                status.setText(R.string.blank);
-                try {
-                    JSONArray serverOp = new JSONArray(response);
-                    for (int i = 0; i < serverOp.length(); i++) {
-                        JSONObject indiQuestion = serverOp.getJSONObject(i);
-
-                        int slNo = indiQuestion.getInt("id");
-                        String title = indiQuestion.getString("title");
-                        int difficulty = indiQuestion.getInt("difficulty");
-                        int solvedBy = indiQuestion.getInt("solved_by");
-                        String datePublished = indiQuestion.getString("date");
-                        String timePublished = indiQuestion.getString("time");
-//                        dbStorage.insertData(slNo, datePublished, timePublished, title, difficulty, solvedBy);
-
-                    }
-                    Intent start = new Intent(getApplicationContext(),SingleProblemOffline.class);
-//                    Intent start = new Intent(getApplicationContext(),ProblemLanding.class);
-                    startActivity(start);
-                    overridePendingTransition(R.anim.bottomup,R.anim.bottomup);
-                    finish();
-
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                status.setText(R.string.blank);
-                if (error instanceof NoConnectionError || error instanceof TimeoutError) {
-                    snackbar.show();
-                }
-            }
-        });
-
         // first time download the content
 
         int firstRun = spStorage.getMainActivityFirstRun();
@@ -203,7 +161,6 @@ public class MainActivity extends AppCompatActivity {
 //                        Intent landing = new Intent(getApplicationContext(),SingleProblemOffline.class);
                         Intent landing = new Intent(getApplicationContext(),ProblemLanding.class);
                         startActivity(landing);
-                        overridePendingTransition(R.anim.bottomup,R.anim.bottomup);
                         finish();
                     }
                 }, 2500);

@@ -22,7 +22,8 @@
         </activity>
         <activity
             android:name=".Euler.ProblemLanding"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".Euler.Number"
             android:screenOrientation="portrait" />
@@ -41,7 +42,6 @@
         <activity
             android:name=".MoreInfo.AboutApp"
             android:screenOrientation="portrait" />
-        <activity android:name=".Euler.SingleProblemOffline" />
     </application>
 
 </manifest>

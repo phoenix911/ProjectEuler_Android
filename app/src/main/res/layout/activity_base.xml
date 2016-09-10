@@ -14,7 +14,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="@color/colorFAB1"
+            android:background="@color/colorPrimaryDark"
             android:layout_gravity="center"
             android:gravity="center"
             app:theme="@style/MainActionBar">
@@ -39,7 +39,8 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:gravity="center"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
                     app:font="@string/font_name_arimo_madurai"
                     android:text="@string/app_name"
                     />
@@ -63,9 +64,32 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/menu_base"
-        app:theme="@style/drawer_theme"
-        />
-
-
+        app:theme="@style/drawer_theme">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_above="@+id/footerTop"
+                android:src="@drawable/panda"
+                android:alpha="0.8"
+                android:layout_centerHorizontal="true"
+                android:layout_width="100sp"
+                android:layout_height="100sp" />
+            <online.pandaapps.gre.projecteuler.Utils.Fonts.CustomFontTV
+                android:id="@+id/footerTop"
+                android:text="@string/footer_top"
+                android:layout_above="@+id/footerBottom"
+                android:layout_alignParentBottom="false"
+                app:font="@string/font_name_arimo_madurai"
+                style="@style/tvNavFooter"
+                />
+            <online.pandaapps.gre.projecteuler.Utils.Fonts.CustomFontTV
+                android:id="@+id/footerBottom"
+                style="@style/tvNavFooter"
+                android:text="@string/footer_bottom"
+                app:font="@string/font_name_arimo_madurai"
+                />
+        </RelativeLayout>
+</android.support.design.widget.NavigationView>
     <!--app:headerLayout="@layout/nav_header"-->
 </android.support.v4.widget.DrawerLayout>

@@ -23,6 +23,8 @@ public class Number extends BaseActivity {
 
     TextView topText;
 
+    public static int flagnAndD;
+
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -36,13 +38,12 @@ public class Number extends BaseActivity {
         dbCreator = new DBCreator(this);
 
         Intent nAndD = getIntent();
-        int flagnAndD = Integer.parseInt(nAndD.getStringExtra(Constants.nAndDFlag));
+        flagnAndD = Integer.parseInt(nAndD.getStringExtra(Constants.nAndDFlag));
 
         switch (flagnAndD){
             case 1:
                 topText.setText("Based On Number");
                 int totalProblem = dbCreator.getCount();
-                System.out.println(totalProblem);
                 int pGroup = totalProblem/25;
                 int displayGroup = pGroup+1;
                 problemList = new String [displayGroup];

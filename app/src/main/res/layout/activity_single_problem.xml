@@ -21,6 +21,7 @@
         card_view:cardCornerRadius="100sp"
         android:thicknessRatio="2.5"
         android:layout_weight="1"
+        auto:cardBackgroundColor="@color/cardTop"
         android:layout_margin="2sp"
         android:layout_height="50dp">
 
@@ -30,6 +31,7 @@
             android:layout_marginTop="4sp"
             android:layout_height="wrap_content"
             style="@style/tvQuestionList"
+            android:textColor="@android:color/white"
             android:textSize="25sp"
             app:font="@string/font_name_arimo_madurai"
             />
